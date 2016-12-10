@@ -1,0 +1,8 @@
+#
+# <%= pkg.name.slug %>
+#
+
+.editorconfig
+.gitattributes
+.gitignore
+node_modules
