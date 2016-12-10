@@ -1,0 +1,26 @@
+#
+# <%= pkg.name.slug %>
+#
+# Patterns of files and directories that git should ignore
+#
+
+# ----------- Node related
+
+node_modules/
+npm-debug.log
+
+# ----------- Automatic backup files
+
+*~
+*.swp
+
+# ----------- Patch & Diff files
+
+*.diff
+*.patch
+*.orig
+*.rej
+
+# ----------- Specifically, don't ignore these files
+
+!.gitignore
