@@ -1,2 +1,25 @@
+#
+# generator-angular-modsmith
+#
+# Patterns of files and directories that git should ignore
+#
+
 node_modules
 coverage
+
+# ----------- Automatic backup files
+
+*~
+*.swp
+*.bak
+
+# ----------- Patch & Diff files
+
+*.diff
+*.patch
+*.orig
+*rej
+
+# ----------- Specifically, don't ignore these files
+
+!.gitignore
