@@ -18,9 +18,8 @@ module.exports = yeoman.Base.extend({
   },
 
   prompting: function () {
-    // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the dandy ' + chalk.red('generator-angular-modsmith') + ' generator!'
+      'Welcome to the ' + chalk.green('angular-modsmith') + ' generator!'
     ));
 
     var prompts = [
