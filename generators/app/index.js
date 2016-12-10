@@ -4,6 +4,13 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 
 module.exports = yeoman.Base.extend({
+  initializing: function () {
+    //
+    // Get command-line argument, if any
+    //
+    this.argument('arg', {type: String, required: false});
+  },
+
   prompting: function () {
     // Have Yeoman greet the user.
     this.log(yosay(
