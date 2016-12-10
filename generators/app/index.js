@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var path = require('path');
 
 module.exports = yeoman.Base.extend({
   initializing: function () {
@@ -9,6 +10,11 @@ module.exports = yeoman.Base.extend({
     // Get command-line argument, if any
     //
     this.argument('arg', {type: String, required: false});
+
+    //
+    // Get name of current directory
+    //
+    this.dir = path.basename(process.cwd());
   },
 
   prompting: function () {
