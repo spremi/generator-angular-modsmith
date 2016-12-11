@@ -10,9 +10,53 @@ describe('generator-angular-modsmith:app', function () {
       .toPromise();
   });
 
-  it('creates files', function () {
+  it('Creates README', function () {
     assert.file([
-      'dummyfile.txt'
+      'README.md'
+    ]);
+  });
+
+  it('Creates LICENSE', function () {
+    assert.file([
+      'LICENSE'
+    ]);
+  });
+
+  it('Creates package.json', function () {
+    assert.file([
+      'package.json'
+    ]);
+  });
+
+  it('Creates configuration files for GIT', function () {
+    assert.file([
+      '.gitattributes',
+      '.gitignore'
+    ]);
+  });
+
+  it('Creates configuration files for ESLINT', function () {
+    assert.file([
+      '.eslintignore',
+      '.eslintrc.js'
+    ]);
+  });
+
+  it('Creates .editorconfig', function () {
+    assert.file([
+      '.editorconfig'
+    ]);
+  });
+
+  it('Creates .npmignore', function () {
+    assert.file([
+      '.npmignore'
+    ]);
+  });
+
+  it('Creates gulpfile.js', function () {
+    assert.file([
+      'gulpfile.js'
     ]);
   });
 });
