@@ -6,13 +6,15 @@
   "license": "<%= pkg.license %>",
   "keywords": [
   <%
-  for (var p = 0; ((pkg.keywords[p] !== '') && (p < pkg.keywords.length)); p++) {
-    if (p !== (pkg.keywords.length - 1)) {
+  if (typeof pkg.keywords === 'Array') {
+    for (var p = 0; ((p < pkg.keywords.length) && (pkg.keywords[p] !== '')); p++) {
+      if (p !== (pkg.keywords.length - 1)) {
   -%>
   "<%= pkg.keywords[p] %>",
   <%  } else { -%>
   "<%= pkg.keywords[p] %>"
-  <%}
+  <%  }
+    }
   }
   -%>],
   "author": {
