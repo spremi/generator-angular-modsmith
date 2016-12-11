@@ -146,11 +146,51 @@ module.exports = yeoman.Base.extend({
     }.bind(this));
   },
 
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
+  writing: {
+    //
+    // Copy base configuration files
+    //
+    base: function () {
+      this.fs.copyTpl(
+        this.templatePath('_package.json'),
+        this.destinationPath('package.json'),
+        this.props);
+
+      this.fs.copyTpl(
+        this.templatePath('_npmignore'),
+        this.destinationPath('.npmignore'),
+        this.props);
+
+      this.fs.copyTpl(
+        this.templatePath('_gitignore'),
+        this.destinationPath('.gitignore'),
+        this.props);
+
+      this.fs.copyTpl(
+        this.templatePath('_gitattributes'),
+        this.destinationPath('.gitattributes'),
+        this.props);
+
+      this.fs.copyTpl(
+        this.templatePath('README.md'),
+        this.destinationPath('README.md'),
+        this.props);
+
+      this.fs.copyTpl(
+        this.templatePath('_editorconfig'),
+        this.destinationPath('.editorconfig'),
+        this.props);
+
+      this.fs.copyTpl(
+        this.templatePath('_eslintignore'),
+        this.destinationPath('.eslintignore'),
+        this.props);
+
+      this.fs.copyTpl(
+        this.templatePath('_eslintrc.js'),
+        this.destinationPath('.eslintrc.js'),
+        this.props);
+    }
   },
 
   install: function () {
