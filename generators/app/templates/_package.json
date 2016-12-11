@@ -1,0 +1,22 @@
+{
+  "name": "<%= pkg.name.slug %>",
+  "version": "<%= pkg.version %>",
+  "description": "<%= pkg.desc %>",
+  "repository": "<%= pkg.repo %>",
+  "license": "<%= pkg.license %>",
+  "keywords": [
+  ],
+  "author": {
+    "name": "<%= author.name %>",
+    "email": "<%= author.email %>",
+    "url": "<%= author.home %>"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "^3.1.1",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-exclude-gitignore": "^1.0.0"
+  }
+}
