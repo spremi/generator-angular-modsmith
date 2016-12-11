@@ -5,7 +5,16 @@
   "repository": "<%= pkg.repo %>",
   "license": "<%= pkg.license %>",
   "keywords": [
-  ],
+  <%
+  for (var p = 0; ((pkg.keywords[p] !== '') && (p < pkg.keywords.length)); p++) {
+    if (p !== (pkg.keywords.length - 1)) {
+  -%>
+  "<%= pkg.keywords[p] %>",
+  <%  } else { -%>
+  "<%= pkg.keywords[p] %>"
+  <%}
+  }
+  -%>],
   "author": {
     "name": "<%= author.name %>",
     "email": "<%= author.email %>",
