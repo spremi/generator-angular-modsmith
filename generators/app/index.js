@@ -190,6 +190,11 @@ module.exports = yeoman.Base.extend({
         this.templatePath('_eslintrc.js'),
         this.destinationPath('.eslintrc.js'),
         this.props);
+
+      this.fs.copyTpl(
+        this.templatePath('_gulpfile.js'),
+        this.destinationPath('gulpfile.js'),
+        this.props);
     },
 
     //
