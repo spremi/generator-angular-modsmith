@@ -3,6 +3,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var path = require('path');
+var to = require('to-case');
 
 module.exports = yeoman.Base.extend({
   initializing: function () {
@@ -123,8 +124,25 @@ module.exports = yeoman.Base.extend({
     ];
 
     return this.prompt(prompts).then(function (props) {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
+      this.props = {
+        pkg : {
+          name  : {
+            orig    : props.argName,
+            slug    : to.slug(props.argName),
+            camel   : to.camel(props.argName)
+          },
+          desc      : props.argDesc,
+          version   : props.argVersion,
+          repo      : props.argRepo,
+          license   : props.argLicense,
+          keywords  : props.argKeywords
+        },
+        author  : {
+          name  : props.argAuthorName,
+          email : props.argAuthorEmail,
+          url   : props.argAuthorHome
+        }
+      };
     }.bind(this));
   },
 
