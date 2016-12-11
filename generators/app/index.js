@@ -190,6 +190,56 @@ module.exports = yeoman.Base.extend({
         this.templatePath('_eslintrc.js'),
         this.destinationPath('.eslintrc.js'),
         this.props);
+    },
+
+    //
+    // Copy LICENSE
+    //
+    license: function () {
+      var licenseTpl = '';
+
+      switch (this.props.pkg.license) {
+        case 'Apache-2.0':
+          licenseTpl = 'licenses/LICENSE_APACHE_2_0';
+          break;
+
+        case 'BSD-2-Clause':
+          licenseTpl = 'licenses/LICENSE_BSD_2_CLAUSE';
+          break;
+
+        case 'BSD-3-Clause':
+          licenseTpl = 'licenses/LICENSE_BSD_3_CLAUSE';
+          break;
+
+        case 'GPL-2.0':
+          licenseTpl = 'licenses/LICENSE_GPL_2_0';
+          break;
+
+        case 'GPL-3.0':
+          licenseTpl = 'licenses/LICENSE_GPL_3_0';
+          break;
+
+        case 'LGPL-2.1':
+          licenseTpl = 'licenses/LICENSE_LGPL_2_1';
+          break;
+
+        case 'LGPL-3.0':
+          licenseTpl = 'licenses/LICENSE_LGPL_3_0';
+          break;
+
+        case 'MIT':
+          licenseTpl = 'licenses/LICENSE_MIT';
+          break;
+
+        default:
+          licenseTpl = 'licenses/LICENSE_OTHER';
+          break;
+      }
+
+      this.fs.copyTpl(
+        this.templatePath(licenseTpl),
+        this.destinationPath('LICENSE'),
+        this.props);
     }
   },
 
