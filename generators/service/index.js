@@ -108,9 +108,5 @@ module.exports = yeoman.Base.extend({
                     path.join(dstDir, this.props.svc.name.camel + '.service.spec.js'),
                     this.props);
     }
-  },
-
-  install: function () {
-    this.installDependencies();
   }
 });
