@@ -170,9 +170,5 @@ module.exports = yeoman.Base.extend({
                       this.props);
       }
     }
-  },
-
-  install: function () {
-    this.installDependencies();
   }
 });
