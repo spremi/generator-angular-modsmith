@@ -3,6 +3,8 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var to = require('to-case');
+var path = require('path');
+var mkdirp = require('mkdirp');
 
 module.exports = yeoman.Base.extend({
   initializing: function () {
@@ -113,11 +115,30 @@ module.exports = yeoman.Base.extend({
     }.bind(this));
   },
 
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
+  writing: {
+    //
+    // Create directories
+    //
+    dirs: function () {
+      var ok = true;
+      var dstDir = path.join('src', 'directives', this.props.dtv.name.camel);
+
+      try {
+        mkdirp.sync(dstDir);
+      } catch (e) {
+        ok = false;
+
+        this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
+                 chalk.magenta.bold(dstDir));
+        this.log(chalk.yellow(e.message) + '\n');
+      } finally {
+        if (ok) {
+          this.dstError = false;
+        } else {
+          this.dstError = true;
+        }
+      }
+    }
   },
 
   install: function () {
