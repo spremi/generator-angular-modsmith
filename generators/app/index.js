@@ -257,6 +257,9 @@ module.exports = yeoman.Base.extend({
   },
 
   install: function () {
+    this.config.set('pkg', this.props.pkg);
+    this.config.set('author', this.props.author);
+
     this.installDependencies();
   }
 });
