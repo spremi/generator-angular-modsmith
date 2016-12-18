@@ -138,6 +138,37 @@ module.exports = yeoman.Base.extend({
           this.dstError = true;
         }
       }
+    },
+
+    //
+    // Copy sources files
+    //
+    sources: function () {
+      if (this.dstError) {
+        return;
+      }
+
+      var dstDir = path.join('src', 'directives', this.props.dtv.name.camel);
+
+      this.template('_directive.js',
+                    path.join(dstDir, this.props.dtv.name.camel + '.directive.js'),
+                    this.props);
+
+      this.template('_directive.spec.js',
+                    path.join(dstDir, this.props.dtv.name.camel + '.directive.spec.js'),
+                    this.props);
+
+      if (this.props.dtv.style) {
+        this.template('_directive.styl',
+                      path.join(dstDir, this.props.dtv.name.camel + '.styl'),
+                      this.props);
+      }
+
+      if (this.props.dtv.extTpl) {
+        this.template('_directive.html',
+                      path.join(dstDir, this.props.dtv.name.camel + '.html'),
+                      this.props);
+      }
     }
   },
 
