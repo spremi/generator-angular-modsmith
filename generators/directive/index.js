@@ -86,8 +86,30 @@ module.exports = yeoman.Base.extend({
     ];
 
     return this.prompt(prompts).then(function (props) {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
+      //
+      // Read package configuration.
+      //
+      var pkgconf = this.config.getAll();
+
+      //
+      // Add package configuration to directive options
+      //
+      this.props = {
+        pkg     : JSON.parse(JSON.stringify(pkgconf.pkg)),
+        author  : JSON.parse(JSON.stringify(pkgconf.author)),
+        dtv : {
+          name  : {
+            orig    : props.argName,
+            slug    : to.slug(props.argName),
+            camel   : to.camel(props.argName)
+          },
+          desc      : props.argDesc,
+          style     : props.argStyle,
+          extTpl    : props.argExtTpl,
+          linkFn    : props.argLinkFn,
+          restrict  : props.argRestrict
+        }
+      };
     }.bind(this));
   },
 
