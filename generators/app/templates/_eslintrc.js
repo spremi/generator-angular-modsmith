@@ -30,7 +30,6 @@ module.exports = {
     'no-caller': 'error',
     'no-eval': 'error',
     'no-extend-native': 'error',
-    'no-invalid-this': 'error',
     'no-labels': 'error',
     'no-lone-blocks': 'error',
     'no-loop-func': 'error',
@@ -127,7 +126,12 @@ module.exports = {
     //
     // ECMAScript 6
     //
-    'arrow-spacing': 'error'
+    'arrow-spacing': 'error',
+
+    //
+    // AngularJS
+    //
+    'no-invalid-this': 'off'
   },
   globals: {
     angular: true,
