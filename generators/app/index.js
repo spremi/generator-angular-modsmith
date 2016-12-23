@@ -50,7 +50,7 @@ module.exports = yeoman.Base.extend({
       {
         type: 'list',
         name: 'argLicense',
-        choices : [
+        choices: [
           {
             name  : 'Apache License 2.0',
             value : 'Apache-2.0',

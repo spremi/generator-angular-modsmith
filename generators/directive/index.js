@@ -61,7 +61,7 @@ module.exports = yeoman.Base.extend({
         type: 'list',
         name: 'argRestrict',
         message: chalk.yellow('Restrict to?'),
-        choices : [
+        choices: [
           {
             name  : 'Attribute name only',
             value : 'A',
