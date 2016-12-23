@@ -4,6 +4,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var path = require('path');
 var to = require('to-case');
+var mkdirp = require('mkdirp');
 
 module.exports = yeoman.Base.extend({
   initializing: function () {
@@ -280,6 +281,39 @@ module.exports = yeoman.Base.extend({
         this.templatePath(licenseTpl),
         this.destinationPath('LICENSE'),
         this.props);
+    },
+
+    //
+    // Create source directories
+    //
+    dir: function () {
+      var ok = true;
+
+      try {
+        mkdirp.sync('src');
+      } catch (e) {
+        ok = false;
+
+        this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
+                 chalk.magenta.bold('src'));
+        this.log(chalk.yellow(e.message) + '\n');
+      } finally {
+        if (ok) {
+          this.dstError = false;
+        } else {
+          this.dstError = true;
+        }
+      }
+    },
+
+    //
+    // Create source files
+    //
+    sources: function () {
+      if (this.dstError) {
+        return;
+      }
+      this.template('_module.js', 'src/index.js', this.props);
     }
   },
 
