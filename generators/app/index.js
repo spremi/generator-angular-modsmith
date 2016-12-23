@@ -178,58 +178,21 @@ module.exports = yeoman.Base.extend({
     // Copy base configuration files
     //
     base: function () {
-      this.fs.copyTpl(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json'),
-        this.props);
-
-      this.fs.copyTpl(
-        this.templatePath('_npmignore'),
-        this.destinationPath('.npmignore'),
-        this.props);
-
-      this.fs.copyTpl(
-        this.templatePath('_gitignore'),
-        this.destinationPath('.gitignore'),
-        this.props);
-
-      this.fs.copyTpl(
-        this.templatePath('_gitattributes'),
-        this.destinationPath('.gitattributes'),
-        this.props);
-
-      this.fs.copyTpl(
-        this.templatePath('README.md'),
-        this.destinationPath('README.md'),
-        this.props);
-
-      this.fs.copyTpl(
-        this.templatePath('_editorconfig'),
-        this.destinationPath('.editorconfig'),
-        this.props);
-
-      this.fs.copyTpl(
-        this.templatePath('_eslintignore'),
-        this.destinationPath('.eslintignore'),
-        this.props);
-
-      this.fs.copyTpl(
-        this.templatePath('_eslintrc.js'),
-        this.destinationPath('.eslintrc.js'),
-        this.props);
+      this.template('_package.json',  'package.json',   this.props);
+      this.template('_npmignore',     '.npmignore',     this.props);
+      this.template('_gitignore',     '.gitignore',     this.props);
+      this.template('_gitattributes', '.gitattributes', this.props);
+      this.template('README.md',      'README.md',      this.props);
+      this.template('_editorconfig',  '.editorconfig',  this.props);
+      this.template('_eslintignore',  '.eslintignore',  this.props);
+      this.template('_eslintrc.js',   '.eslintrc.js',   this.props);
 
       if (this.props.pkg.build === 'gulp') {
-        this.fs.copyTpl(
-          this.templatePath('_gulpfile.js'),
-          this.destinationPath('gulpfile.js'),
-          this.props);
+        this.template('_gulpfile.js', 'gulpfile.js', this.props);
       }
 
       if (this.props.pkg.build === 'grunt') {
-        this.fs.copyTpl(
-          this.templatePath('_Gruntfile.js'),
-          this.destinationPath('Gruntfile.js'),
-          this.props);
+        this.template('_Gruntfile.js', 'Gruntfile.js', this.props);
       }
     },
 
@@ -277,10 +240,7 @@ module.exports = yeoman.Base.extend({
           break;
       }
 
-      this.fs.copyTpl(
-        this.templatePath(licenseTpl),
-        this.destinationPath('LICENSE'),
-        this.props);
+      this.template(licenseTpl, 'LICENSE', this.props);
     },
 
     //
