@@ -100,6 +100,23 @@ module.exports = yeoman.Base.extend({
         message: chalk.yellow('Select applicable license:')
       },
       {
+        type: 'list',
+        name: 'argBuild',
+        choices: [
+          {
+            name  : 'Grunt',
+            value : 'grunt',
+            short : 'grunt'
+          },
+          {
+            name  : 'Gulp',
+            value : 'gulp',
+            short : 'gulp'
+          }
+        ],
+        message: chalk.yellow('Build with:')
+      },
+      {
         type: 'input',
         name: 'argKeywords',
         message: chalk.yellow('Package keywords [comma-separated]:'),
@@ -143,6 +160,7 @@ module.exports = yeoman.Base.extend({
           version   : props.argVersion,
           repo      : props.argRepo,
           license   : props.argLicense,
+          build     : props.argBuild,
           keywords  : props.argKeywords
         },
         author  : {
@@ -199,10 +217,19 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('.eslintrc.js'),
         this.props);
 
-      this.fs.copyTpl(
-        this.templatePath('_gulpfile.js'),
-        this.destinationPath('gulpfile.js'),
-        this.props);
+      if (this.props.pkg.build === 'gulp') {
+        this.fs.copyTpl(
+          this.templatePath('_gulpfile.js'),
+          this.destinationPath('gulpfile.js'),
+          this.props);
+      }
+
+      if (this.props.pkg.build === 'grunt') {
+        this.fs.copyTpl(
+          this.templatePath('_Gruntfile.js'),
+          this.destinationPath('Gruntfile.js'),
+          this.props);
+      }
     },
 
     //
