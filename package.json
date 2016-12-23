@@ -45,6 +45,11 @@
     "extends": "xo-space",
     "env": {
       "mocha": true
+    },
+    "rules": {
+      "key-spacing": 0,
+      "no-multi-spaces": 0
+
     }
   },
   "repository": "https://github.com/spremi/generator-angular-modsmith.git",
