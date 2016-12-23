@@ -25,6 +25,12 @@
   "dependencies": {
   },
   "devDependencies": {
+    "angular": "~1.5.8",
+    "angular-cookies": "~1.5.8",
+    "angular-mocks": "~1.5.8",
+    "angular-resource": "~1.5.8",
+    "angular-route": "~1.5.8",
+    "angular-sanitize": "~1.5.8",
     "eslint": "~3.1.1",
     "gulp": "~3.9.0",
     "gulp-eslint": "~3.0.1",
