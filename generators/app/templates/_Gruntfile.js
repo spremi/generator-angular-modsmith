@@ -9,6 +9,7 @@ module.exports = function (grunt) {
   //
   // Load grunt tasks
   //
+  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-eslint');
@@ -82,6 +83,23 @@ module.exports = function (grunt) {
         files: {
           '<%%= self.tmp %>/module.css' : '<%%= self.src %>/module.styl'
         }
+      }
+    },
+
+    //
+    // Post-process generated CSS for vendor specific prefixes
+    //
+    autoprefixer: {
+      options: {
+        browsers: ['last 1 version']
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%%= self.tmp %>',
+          src: '{,*/}*.css',
+          dest: '<%%= self.tmp %>'
+        }]
       }
     },
 
