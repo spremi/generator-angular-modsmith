@@ -9,6 +9,7 @@ module.exports = function (grunt) {
   //
   // Load grunt tasks
   //
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-eslint');
 
   grunt.initConfig({
@@ -24,6 +25,21 @@ module.exports = function (grunt) {
       src: './src',
       dst: './dist',
       tmp: './.tmp'
+    },
+
+    //
+    // Clean directories
+    //
+    clean: {
+      dist: {
+        files: [{
+          dot: true,
+          src: [
+            '<%%= self.tmp %>/*',
+            '<%%= self.dst %>/*'
+          ]
+        }]
+      }
     },
 
     //
