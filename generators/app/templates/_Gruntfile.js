@@ -15,6 +15,11 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-injector');
 
+  //
+  // Display execution time of the tasks
+  //
+  require('time-grunt')(grunt);
+
   grunt.initConfig({
     //
     // Package definition
