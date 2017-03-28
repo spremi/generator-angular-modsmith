@@ -11,6 +11,7 @@ module.exports = function (grunt) {
   //
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-eslint');
+  grunt.loadNpmTasks('grunt-injector');
 
   grunt.initConfig({
     //
@@ -39,6 +40,32 @@ module.exports = function (grunt) {
             '<%%= self.dst %>/*'
           ]
         }]
+      }
+    },
+
+    //
+    // Inject files
+    //
+    injector: {
+      options: {
+        relative: true,
+        addRootSlash: false
+      },
+
+      stylus: {
+        options: {
+          transform: function (filePath) {
+            return '@import \'' + filePath + '\';';
+          },
+          starttag: '// injector:stylus:begin',
+          endtag: '// injector:stylus:end'
+        },
+        files: {
+          'src/module.styl': [
+            '<%%= self.src %>/**/*.styl',
+            '!<%%= self.src %>/module.styl'
+          ]
+        }
       }
     },
 
