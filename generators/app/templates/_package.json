@@ -42,7 +42,8 @@
     "grunt-eslint": "~19.0.0",
     "grunt-injector": "~1.1.0",
     "grunt-ng-annotate": "~3.0.0",
-    "grunt-mkdir": "~1.0.0"
+    "grunt-mkdir": "~1.0.0",
+    "time-grunt": "~1.4.0"
 <% } -%>
 <% if (pkg.build === 'gulp') { -%>
     "gulp": "~3.9.0",
