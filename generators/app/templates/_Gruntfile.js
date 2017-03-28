@@ -7,13 +7,9 @@
 
 module.exports = function (grunt) {
   //
-  // Load grunt tasks
+  // Load grunt plugins - just-in-time
   //
-  grunt.loadNpmTasks('grunt-autoprefixer');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-stylus');
-  grunt.loadNpmTasks('grunt-eslint');
-  grunt.loadNpmTasks('grunt-injector');
+  require('jit-grunt')(grunt);
 
   //
   // Display execution time of the tasks
