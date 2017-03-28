@@ -10,6 +10,7 @@ module.exports = function (grunt) {
   // Load grunt tasks
   //
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-injector');
 
@@ -65,6 +66,21 @@ module.exports = function (grunt) {
             '<%%= self.src %>/**/*.styl',
             '!<%%= self.src %>/module.styl'
           ]
+        }
+      }
+    },
+
+    //
+    // Compiles Stylus to CSS
+    //
+    stylus: {
+      compile: {
+        options: {
+          paths: [ '<%%= self.src %>' ],
+          'include css': true
+        },
+        files: {
+          '<%%= self.tmp %>/module.css' : '<%%= self.src %>/module.styl'
         }
       }
     },
