@@ -9,7 +9,9 @@ module.exports = function (grunt) {
   //
   // Load grunt plugins - just-in-time
   //
-  require('jit-grunt')(grunt);
+  require('jit-grunt')(grunt, {
+    'ngtemplates': 'grunt-angular-templates'
+  });
 
   //
   // Display execution time of the tasks
@@ -101,6 +103,30 @@ module.exports = function (grunt) {
           src: '{,*/}*.css',
           dest: '<%%= self.tmp %>'
         }]
+      }
+    },
+
+    //
+    // Minify and cache HTML templates
+    //
+    ngtemplates: {
+      options: {
+        module: '<%= pkg.name.camel %>',
+        htmlmin: {
+          collapseBooleanAttributes:      true,
+          collapseWhitespace:             true,
+          keepClosingSlash:               true,
+          removeAttributeQuotes:          true,
+          removeComments:                 true,
+          removeEmptyAttributes:          true,
+          removeRedundantAttributes:      true,
+          removeScriptTypeAttributes:     true,
+          removeStyleLinkTypeAttributes:  true
+        }
+      },
+      main: {
+        src:  '<%%= self.src %>/**/*.html',
+        dest: '<%%= self.tmp %>/module-templates.js'
       }
     },
 
