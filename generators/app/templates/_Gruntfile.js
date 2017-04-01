@@ -145,6 +145,20 @@ module.exports = function (grunt) {
     },
 
     //
+    // Make scripts minification safe
+    //
+    ngAnnotate: {
+      options: {
+        singleQuotes: true
+      },
+      dist: {
+        files:  {
+          '<%%= self.tmp %>/module.annotate.js' : '<%%= self.tmp %>/module.concat.js'
+        }
+      }
+    },
+
+    //
     // Static code checker
     //
     eslint: {
