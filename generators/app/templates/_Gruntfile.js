@@ -173,6 +173,17 @@ module.exports = function (grunt) {
     },
 
     //
+    // Minify styleshets
+    //
+    cssmin: {
+      main: {
+        files: {
+          '<%%= self.tmp %>/module.min.css': '<%%= self.tmp %>/module.css'
+        }
+      }
+    },
+
+    //
     // Static code checker
     //
     eslint: {
