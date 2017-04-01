@@ -159,6 +159,20 @@ module.exports = function (grunt) {
     },
 
     //
+    // Uglify the script
+    //
+    uglify: {
+      main: {
+        files: [
+          {
+            src:'<%%= self.tmp %>/module.annotate.js',
+            dest:'<%%= self.tmp %>/module.min.js'
+          }
+        ]
+      }
+    },
+
+    //
     // Static code checker
     //
     eslint: {
