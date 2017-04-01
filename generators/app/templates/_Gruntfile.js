@@ -34,6 +34,14 @@ module.exports = function (grunt) {
     },
 
     //
+    // Banner to be used in minified files
+    //
+    banner: '/* <%= pkg.name.slug %> v<%%= pkg.version %> | ' +
+            '<%%= grunt.template.today("yyyy-mm-dd") %> | ' +
+            '<%= author.name %> (<%= author.email %>) | ' +
+            '<%= pkg.license %> */\n',
+
+    //
     // Clean directories
     //
     clean: {
@@ -162,6 +170,10 @@ module.exports = function (grunt) {
     // Uglify the script
     //
     uglify: {
+      options: {
+        preserveComments: 'some',
+        banner: '<%%= banner %>'
+      },
       main: {
         files: [
           {
