@@ -131,6 +131,20 @@ module.exports = function (grunt) {
     },
 
     //
+    // Concatenate all scripts - including template cache; but excluding test scripts
+    //
+    concat: {
+      main: {
+        src: [
+          '<%%= self.src %>/**/*.js',
+          '!<%%= self.src %>/**/*.spec.js' ,
+          '<%%= self.tmp %>/module-templates.js'
+        ],
+        dest: '<%%= self.tmp %>/module.concat.js'
+      }
+    },
+
+    //
     // Static code checker
     //
     eslint: {
