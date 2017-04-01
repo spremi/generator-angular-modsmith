@@ -246,7 +246,7 @@ module.exports = yeoman.Base.extend({
     //
     // Create source directories
     //
-    dir: function () {
+    srcdir: function () {
       var ok = true;
 
       try {
@@ -274,6 +274,29 @@ module.exports = yeoman.Base.extend({
         return;
       }
       this.template('_module.js', 'src/index.js', this.props);
+    },
+
+    //
+    // Create test directories
+    //
+    tstdir: function () {
+      var ok = true;
+
+      try {
+        mkdirp.sync('test');
+      } catch (e) {
+        ok = false;
+
+        this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
+                 chalk.magenta.bold('test'));
+        this.log(chalk.yellow(e.message) + '\n');
+      } finally {
+        if (ok) {
+          this.dstError = false;
+        } else {
+          this.dstError = true;
+        }
+      }
     }
   },
 
