@@ -184,6 +184,32 @@ module.exports = function (grunt) {
     },
 
     //
+    // Copy files to distribution directory
+    //
+    copy: {
+      main: {
+        files: [
+          {
+            src:'<%%= self.tmp %>/module.css',
+            dest:'<%%= self.dst %>/<%= pkg.name.slug %>.css'
+          },
+          {
+            src:'<%%= self.tmp %>/module.min.css',
+            dest:'<%%= self.dst %>/<%= pkg.name.slug %>.min.css'
+          },
+          {
+            src:'<%%= self.tmp %>/module.annotate.js',
+            dest:'<%%= self.dst %>/<%= pkg.name.slug %>.js'
+          },
+          {
+            src:'<%%= self.tmp %>/module.min.js',
+            dest:'<%%= self.dst %>/<%= pkg.name.slug %>.min.js'
+          }
+        ]
+      }
+    },
+
+    //
     // Static code checker
     //
     eslint: {
