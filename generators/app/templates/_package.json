@@ -34,6 +34,7 @@
     "eslint": "~3.1.1",
 <% if (pkg.build === 'grunt') { -%>
     "grunt": "~1.0.1",
+    "grunt-angular-templates": "~1.1.0",
     "grunt-autoprefixer": "~3.0.4",
     "grunt-contrib-clean": "~1.0.0",
     "grunt-contrib-concat": "~1.0.1",
