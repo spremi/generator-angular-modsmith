@@ -233,6 +233,22 @@ module.exports = function (grunt) {
 
 
   //
+  // Build the module
+  //
+  grunt.registerTask('build', [
+    'clean',
+    'injector',
+    'stylus',
+    'autoprefixer',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'uglify',
+    'cssmin',
+    'copy'
+  ]);
+
+  //
   // Default task
   //
   grunt.registerTask('default', ['eslint']);
