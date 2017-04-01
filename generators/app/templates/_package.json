@@ -48,6 +48,7 @@
     "grunt-mkdir": "~1.0.0",
     "jasmine-core": "~2.5.2",
     "jit-grunt": "~0.10.0",
+    "karma": "~1.5.0",
     "time-grunt": "~1.4.0"
 <% } -%>
 <% if (pkg.build === 'gulp') { -%>
