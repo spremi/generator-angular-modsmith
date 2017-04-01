@@ -228,6 +228,15 @@ module.exports = function (grunt) {
       target: [
         '<%%= self.src %>/**/*.js'
       ]
+    },
+
+    //
+    // Unit testing
+    //
+    karma: {
+      unit: {
+        configFile: 'test/karma.conf.js'
+      }
     }
   });
 
