@@ -52,14 +52,19 @@ module.exports = function (config) {
     // (See: https://npmjs.org/browse/keyword/karma-preprocessor)
     //
     preprocessors: {
-      'src/**/*.html': ['ng-html2js']
+      'src/**/*.html': ['ng-html2js'],
+      'src/**/!(*spec|*mock).js': ['coverage']
     },
 
     //
     // Reporter for test results
     // (See: https://npmjs.org/browse/keyword/karma-reporter)
     //
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
+
+    coverageReporter: {
+      type : 'text'
+    },
 
     //
     // Port used by the web server
