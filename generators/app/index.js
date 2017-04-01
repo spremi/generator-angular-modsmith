@@ -297,7 +297,19 @@ module.exports = yeoman.Base.extend({
           this.dstError = true;
         }
       }
+    },
+
+    //
+    // Create test sources
+    //
+    tests: function () {
+      if (this.dstError) {
+        return;
+      }
+      this.template('test/_karma.conf.js', 'test/karma.conf.js', this.props);
+      this.template('test/_main.js', 'test/main.js', this.props);
     }
+
   },
 
   install: function () {
