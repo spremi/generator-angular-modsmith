@@ -137,6 +137,12 @@ var options = {
       preserveComments: 'some'
     },
     target: 'module.min.js'
+  },
+  cssmin: {
+    glob: [
+      self.tmp + '/module.css'
+    ],
+    target: 'module.min.css'
   }
 };
 
@@ -246,6 +252,18 @@ gulp.task('uglify', function () {
     .pipe(uglify(options.uglify.config))
     .pipe(header(banner, {pkg: pkg}))
     .pipe(rename(options.uglify.target))
+    .pipe(gulp.dest(self.tmp));
+});
+
+//
+// Minify stylesheets
+//
+var cssmin = require('gulp-cssmin');
+
+gulp.task('cssmin', function () {
+  return gulp.src(options.cssmin.glob)
+    .pipe(cssmin())
+    .pipe(rename(options.cssmin.target))
     .pipe(gulp.dest(self.tmp));
 });
 
