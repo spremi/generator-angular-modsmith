@@ -144,6 +144,7 @@ module.exports = function (grunt) {
     concat: {
       main: {
         src: [
+          '<%%= self.src %>/index.js',
           '<%%= self.src %>/**/*.js',
           '!<%%= self.src %>/**/*.spec.js' ,
           '<%%= self.tmp %>/module-templates.js'
