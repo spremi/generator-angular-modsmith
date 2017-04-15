@@ -58,6 +58,14 @@ var options = {
     config: {
       'include css': true
     }
+  },
+  autoprefixer: {
+    glob: [
+    self.tmp + '/module.css'
+    ],
+    config: {
+      browsers: ['last 1 version']
+    }
   }
 };
 
@@ -105,6 +113,17 @@ gulp.task('stylus', function () {
   return gulp.src(options.stylus.glob)
     .pipe(stylus(options.stylus.config))
     .pipe(rename('module.css'))
+    .pipe(gulp.dest(self.tmp));
+});
+
+//
+// Post-process generated CSS for vendor specific prefixes
+//
+var autoprefixer = require('gulp-autoprefixer');
+
+gulp.task('autoprefixer', function () {
+  return gulp.src(options.autoprefixer.glob)
+    .pipe(autoprefixer(options.autoprefixer.config))
     .pipe(gulp.dest(self.tmp));
 });
 
