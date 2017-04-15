@@ -62,7 +62,8 @@
     "gulp": "~3.9.0",
     "gulp-clean": "~0.3.2",
     "gulp-eslint": "~3.0.1",
-    "gulp-exclude-gitignore": "~1.0.0"
+    "gulp-exclude-gitignore": "~1.0.0",
+    "gulp-inject": "~4.2.0"
 <% } -%>
   }
 }
