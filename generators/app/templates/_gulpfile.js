@@ -7,6 +7,7 @@
 var gulp = require('gulp');
 
 var excludeGitignore = require('gulp-exclude-gitignore');
+var rename = require('gulp-rename');
 
 //
 // Path to common directories
@@ -49,6 +50,14 @@ var options = {
         endtag: '// injector:stylus:end',
       }
     }
+  },
+  stylus: {
+    glob: [
+    self.src + '/module.styl'
+    ],
+    config: {
+      'include css': true
+    }
   }
 };
 
@@ -87,6 +96,17 @@ gulp.task('inject-stylus', function () {
     .pipe(gulp.dest(self.src));
 });
 
+//
+// Compile Stylus to CSS
+//
+var stylus = require('gulp-stylus');
+
+gulp.task('stylus', function () {
+  return gulp.src(options.stylus.glob)
+    .pipe(stylus(options.stylus.config))
+    .pipe(rename('module.css'))
+    .pipe(gulp.dest(self.tmp));
+});
 
 //
 // Describe default action
