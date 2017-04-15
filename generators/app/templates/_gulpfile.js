@@ -96,6 +96,15 @@ var options = {
       self.tmp + '/module-templates.js'
     ],
     target: 'module.concat.js'
+  },
+  ngAnnotate: {
+    glob: [
+      self.tmp + '/module.concat.js'
+    ],
+    config: {
+      singleQuotes: true
+    },
+    target: 'module.annotate.js'
   }
 };
 
@@ -182,6 +191,17 @@ gulp.task('concat', function () {
     .pipe(gulp.dest(self.tmp));
 });
 
+//
+// Make scripts minification safe
+//
+var ngAnnotate = require('gulp-ng-annotate');
+
+gulp.task('ngAnnotate', function () {
+  return gulp.src(options.ngAnnotate.glob)
+    .pipe(ngAnnotate(options.ngAnnotate.config))
+    .pipe(rename(options.ngAnnotate.target))
+    .pipe(gulp.dest(self.tmp));
+});
 
 //
 // Describe default action
