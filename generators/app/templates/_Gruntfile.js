@@ -227,7 +227,8 @@ module.exports = function (grunt) {
     //
     eslint: {
       target: [
-        '<%%= self.src %>/**/*.js'
+        '<%%= self.src %>/**/*.js',
+        'test/main.js'
       ]
     },
 
