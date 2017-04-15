@@ -60,6 +60,7 @@
 <% } -%>
 <% if (pkg.build === 'gulp') { -%>
     "gulp": "~3.9.0",
+    "gulp-angular-templates": "~0.0.2",
     "gulp-autoprefixer": "~3.1.1",
     "gulp-clean": "~0.3.2",
     "gulp-eslint": "~3.0.1",
