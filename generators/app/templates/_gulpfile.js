@@ -32,6 +32,23 @@ var options = {
       self.dst + '/*',
       self.tmp + '/*'
     ]
+  },
+  inject: {
+    stylus: {
+      glob: [
+      self.src + '/**/*.styl',
+      '!' + self.src + '/module.styl'
+      ],
+      config: {
+        relative: true,
+        addRootSlash: false,
+        transform: function (filePath) {
+          return '@import \'' + filePath + '\';';
+        },
+        starttag: '// injector:stylus:begin',
+        endtag: '// injector:stylus:end',
+      }
+    }
   }
 };
 
@@ -57,6 +74,17 @@ var clean = require('gulp-clean');
 gulp.task('clean', function () {
   return gulp.src(options.clean.glob, { read: false })
     .pipe(clean());
+});
+
+//
+// Inject files
+//
+var inject = require('gulp-inject');
+
+gulp.task('inject-stylus', function () {
+  return gulp.src(self.src + '/module.styl')
+    .pipe(inject(gulp.src(options.inject.stylus.glob, { read: false }), options.inject.stylus.config))
+    .pipe(gulp.dest(self.src));
 });
 
 
