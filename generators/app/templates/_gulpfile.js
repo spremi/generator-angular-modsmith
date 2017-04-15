@@ -66,6 +66,27 @@ var options = {
     config: {
       browsers: ['last 1 version']
     }
+  },
+  htmlmin: {
+    glob: [
+      self.src + '/**/*.html'
+    ],
+    config: {
+      collapseBooleanAttributes:      true,
+      collapseWhitespace:             true,
+      keepClosingSlash:               true,
+      removeAttributeQuotes:          true,
+      removeComments:                 true,
+      removeEmptyAttributes:          true,
+      removeRedundantAttributes:      true,
+      removeScriptTypeAttributes:     true,
+      removeStyleLinkTypeAttributes:  true
+    }
+  },
+  ngtemplates: {
+    config: {
+      module: '<%= pkg.name.camel %>'
+    }
   }
 };
 
@@ -126,6 +147,22 @@ gulp.task('autoprefixer', function () {
     .pipe(autoprefixer(options.autoprefixer.config))
     .pipe(gulp.dest(self.tmp));
 });
+
+//
+// Minify and cache HTML templates
+//
+var htmlmin = require('gulp-htmlmin');
+var ngtemplates = require('gulp-angular-templates');
+
+gulp.task('ngtemplates', function () {
+  return gulp.src(options.htmlmin.glob)
+  .pipe(htmlmin(options.htmlmin.config))
+  .pipe(ngtemplates(options.ngtemplates.config))
+  .pipe(rename('module-templates.js'))
+  .pipe(gulp.dest(self.tmp));
+});
+
+
 
 //
 // Describe default action
