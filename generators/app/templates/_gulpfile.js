@@ -87,6 +87,15 @@ var options = {
     config: {
       module: '<%= pkg.name.camel %>'
     }
+  },
+  concat: {
+    glob: [
+      self.src + '/index.js',
+      self.src + '/**/*.js',
+      '!' + self.src + '/**/*.spec.js',
+      self.tmp + '/module-templates.js'
+    ],
+    target: 'module.concat.js'
   }
 };
 
@@ -162,6 +171,16 @@ gulp.task('ngtemplates', function () {
   .pipe(gulp.dest(self.tmp));
 });
 
+//
+// Concatenate all scripts - including template cache; but excluding test scripts
+//
+var concat = require('gulp-concat');
+
+gulp.task('concat', function () {
+  return gulp.src(options.concat.glob)
+    .pipe(concat(options.concat.target))
+    .pipe(gulp.dest(self.tmp));
+});
 
 
 //
