@@ -26,6 +26,12 @@ var options = {
       self.src + '/**/*.js',
       'test/main.js'
     ]
+  },
+  clean: {
+    glob: [
+      self.dst + '/*',
+      self.tmp + '/*'
+    ]
   }
 };
 
@@ -40,6 +46,17 @@ gulp.task('eslint', function () {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
+});
+
+
+//
+// Clean directories
+//
+var clean = require('gulp-clean');
+
+gulp.task('clean', function () {
+  return gulp.src(options.clean.glob, { read: false })
+    .pipe(clean());
 });
 
 
