@@ -66,6 +66,7 @@
     "gulp-concat": "~2.6.1",
     "gulp-eslint": "~3.0.1",
     "gulp-exclude-gitignore": "~1.0.0",
+    "gulp-header": "~1.8.8",
     "gulp-htmlmin": "~3.0.0",
     "gulp-inject": "~4.2.0",
     "gulp-ng-annotate": "~2.0.0",
