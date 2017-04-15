@@ -316,6 +316,11 @@ module.exports = yeoman.Base.extend({
     this.config.set('pkg', this.props.pkg);
     this.config.set('author', this.props.author);
 
-    this.installDependencies();
+    this.log(chalk.white.bold('\nInstalling dependencies...\n'));
+
+    this.npmInstall()
+      .on('end', function () {
+        this.log(chalk.green.bold('\nReady.\n'));
+      });
   }
 });
