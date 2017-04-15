@@ -28,9 +28,9 @@ module.exports = function (grunt) {
     // Common module definitions
     //
     self: {
-      src: './src',
-      dst: './dist',
-      tmp: './.tmp'
+      src: 'src',
+      dst: 'dist',
+      tmp: '.tmp'
     },
 
     //
