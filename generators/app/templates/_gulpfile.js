@@ -19,6 +19,29 @@ var self = {
 };
 
 //
+// Package definitions
+//
+var fs = require('fs');
+var pkg = JSON.parse(fs.readFileSync('./package.json'));
+
+//
+// Current date to be used in timestamp
+//
+var now = new Date();
+
+var year  = now.getFullYear().toString();
+var month = ('0' + (now.getMonth() + 1).toString()).slice(-2);
+var date  = ('0' + now.getDate().toString()).slice(-2);
+
+//
+// Banner to be used in minified files
+//
+var banner = '/* <%= pkg.name.slug %> v<%%= pkg.version %> | ' +
+             '(' + year + '-' + month + '-' + date + ') | ' +
+             '<%= author.name %> (<%= author.email %>) | ' +
+             '<%= pkg.license %> */\n';
+
+//
 // Options to various tasks
 //
 var options = {
@@ -105,6 +128,15 @@ var options = {
       singleQuotes: true
     },
     target: 'module.annotate.js'
+  },
+  uglify: {
+    glob: [
+      self.tmp + '/module.annotate.js'
+    ],
+    config: {
+      preserveComments: 'some'
+    },
+    target: 'module.min.js'
   }
 };
 
@@ -200,6 +232,20 @@ gulp.task('ngAnnotate', function () {
   return gulp.src(options.ngAnnotate.glob)
     .pipe(ngAnnotate(options.ngAnnotate.config))
     .pipe(rename(options.ngAnnotate.target))
+    .pipe(gulp.dest(self.tmp));
+});
+
+//
+// Uglify the script
+//
+var uglify = require('gulp-uglify');
+var header = require('gulp-header');
+
+gulp.task('uglify', function () {
+  return gulp.src(options.uglify.glob)
+    .pipe(uglify(options.uglify.config))
+    .pipe(header(banner, {pkg: pkg}))
+    .pipe(rename(options.uglify.target))
     .pipe(gulp.dest(self.tmp));
 });
 
