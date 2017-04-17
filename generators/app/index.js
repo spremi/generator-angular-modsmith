@@ -285,6 +285,7 @@ module.exports = yeoman.Base.extend({
         return;
       }
       this.template('_module.js', 'src/index.js', this.props);
+      this.template('_index.js', 'index.js', this.props);
     },
 
     //
