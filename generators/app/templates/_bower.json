@@ -1,0 +1,44 @@
+{
+  "name": "<%= pkg.name.slug %>",
+  "description": "<%= pkg.desc %>",
+  "license": "<%= pkg.license %>",
+  "main": [
+    "dist/<%= pkg.name.slug %>.js"
+  ],
+  "keywords": [
+  <%
+  if (typeof pkg.keywords === 'Array') {
+    for (var p = 0; ((p < pkg.keywords.length) && (pkg.keywords[p] !== '')); p++) {
+      if (p !== (pkg.keywords.length - 1)) {
+  -%>
+  "<%= pkg.keywords[p] %>",
+  <%  } else { -%>
+  "<%= pkg.keywords[p] %>"
+  <%  }
+    }
+  }
+  -%>],
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "authors": [
+    {
+      "name": "<%= author.name %>",
+      "email": "<%= author.email %>",
+      "homepage": "<%= author.home %>"
+    }
+  ],
+  "homepage": "",
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
