@@ -131,6 +131,12 @@ module.exports = yeoman.Base.extend({
         }
       },
       {
+        type: 'confirm',
+        name: 'argBowerJson',
+        message: chalk.yellow('Create bower.json:'),
+        default: true
+      },
+      {
         type: 'input',
         name: 'argAuthorName',
         message: chalk.yellow('Author\'s name:'),
@@ -168,7 +174,8 @@ module.exports = yeoman.Base.extend({
           name  : props.argAuthorName,
           email : props.argAuthorEmail,
           url   : props.argAuthorHome
-        }
+        },
+        bowerJson : props.argBowerJson
       };
     }.bind(this));
   },
@@ -193,6 +200,10 @@ module.exports = yeoman.Base.extend({
 
       if (this.props.pkg.build === 'grunt') {
         this.template('_Gruntfile.js', 'Gruntfile.js', this.props);
+      }
+
+      if (this.props.bowerJson) {
+        this.template('_bower.json', 'bower.json', this.props);
       }
     },
 
