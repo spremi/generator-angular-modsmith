@@ -5,6 +5,7 @@ var yosay = require('yosay');
 var to = require('to-case');
 var path = require('path');
 var mkdirp = require('mkdirp');
+var fs = require('fs');
 
 module.exports = yeoman.Base.extend({
   initializing: function () {
@@ -167,6 +168,19 @@ module.exports = yeoman.Base.extend({
       if (this.props.dtv.extTpl) {
         this.template('_directive.html',
                       path.join(dstDir, this.props.dtv.name.camel + '.html'),
+                      this.props);
+      }
+
+      //
+      // Copy module-level 'stylus' file - only if it doesn't exist.
+      //
+      var modStylus = this.destinationPath('src/module.styl');
+
+      if (fs.existsSync(modStylus)) {
+        this.log('\n' + chalk.yellow('File') + ' module.styl ' + chalk.yellow('already exists.') + '\n');
+      } else {
+        this.template('_module.styl',
+                      'src/module.styl',
                       this.props);
       }
     }
