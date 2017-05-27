@@ -100,9 +100,11 @@ module.exports = function (grunt) {
     //
     // Post-process generated CSS for vendor specific prefixes
     //
-    autoprefixer: {
+    postcss: {
       options: {
-        browsers: ['last 1 version']
+        processors: [
+          require('autoprefixer')({browsers: ['last 1 version']})
+        ]
       },
       dist: {
         files: [{
@@ -250,7 +252,7 @@ module.exports = function (grunt) {
     'clean',
     'injector',
     'stylus',
-    'autoprefixer',
+    'postcss',
     'ngtemplates',
     'concat',
     'ngAnnotate',
