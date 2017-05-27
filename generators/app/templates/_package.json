@@ -33,6 +33,7 @@
     "angular-route": "~1.5.8",
     "angular-sanitize": "~1.5.8",
 <% } -%>
+    "autoprefixer": "7.1.1",
     "eslint": "~3.1.1",
 <% if (pkg.build === 'grunt') { -%>
     "grunt": "~1.0.1",
@@ -50,6 +51,7 @@
     "grunt-karma": "~2.0.0",
     "grunt-mkdir": "~1.0.0",
     "grunt-ng-annotate": "~3.0.0",
+    "grunt-postcss": "~0.8.0",
     "jasmine-core": "~2.5.2",
     "jit-grunt": "~0.10.0",
     "karma": "~1.5.0",
