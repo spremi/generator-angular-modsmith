@@ -37,8 +37,9 @@ Generates code for a service.
 ## TODO
 
 - [ ] Complete support for GulpJS
-- [ ] Update dependencies, if necessary
-- [ ] Migrate from `grunt-autoprefixer` to `grunt-postcss`
+- [x] Update dependencies, if necessary
+- [x] Migrate from `grunt-autoprefixer` to `grunt-postcss`
+- [ ] Migrate to yeoman-generator 1.0
 - [ ] Migrate to IIFE syntax
 - [ ] Support for ui-router
 - [ ] Optimize build steps
