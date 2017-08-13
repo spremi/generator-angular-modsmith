@@ -1,6 +1,6 @@
 # angular-modsmith Generator
 Yeoman generator for quickly setting up a project for implementing an AngularJS 1.x module (**not application**).
- - Choice of Grunt / Gulpas the build system.
+ - Choice of Grunt / Gulp as the build system.
  - Sub-generators for directives and services.
  - Uses *stylus* for stylesheets
  - Uses *eslint* for static code checking.
