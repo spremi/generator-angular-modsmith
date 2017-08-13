@@ -48,8 +48,8 @@
     },
     "rules": {
       "key-spacing": 0,
-      "no-multi-spaces": 0
-
+      "no-multi-spaces": 0,
+      "indent": 0
     },
     "globals": {
       "angular": true
