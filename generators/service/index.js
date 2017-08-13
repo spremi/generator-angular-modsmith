@@ -1,37 +1,38 @@
 'use strict';
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
-var to = require('to-case');
-var path = require('path');
-var mkdirp = require('mkdirp');
+const Generator = require('yeoman-generator');
+const chalk = require('chalk');
+const yosay = require('yosay');
+const to = require('to-case');
+const path = require('path');
+const mkdirp = require('mkdirp');
 
-module.exports = yeoman.Base.extend({
-  initializing: function () {
+module.exports = class extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
     //
     // Get command-line argument, if any
     //
-    this.argument('arg', {type: String, required: false});
-  },
+    this.argument('arg', {type: String, required: false, desc: 'Name of the service'});
+  }
 
-  prompting: function () {
+  prompting() {
     this.log(yosay(
       'Welcome to the ' + chalk.red('angular-modsmith') + ' generator!'
     ));
 
-    if (typeof this.arg === 'undefined') {
+    if (typeof this.options.arg === 'undefined') {
       this.log(chalk.blue.bold('Creating new service...') + '\n');
     } else {
       this.log(chalk.blue.bold('Creating service') + ' ' +
-               chalk.magenta.bold(this.arg) + chalk.blue.bold('...') + '\n');
+              chalk.magenta.bold(this.options.arg) + chalk.blue.bold('...') + '\n');
     }
 
-    var prompts = [
+    const prompts = [
       {
         type: 'input',
         name: 'argName',
         message: chalk.yellow('Service name :'),
-        default: this.arg ? to.slug(this.arg) : undefined
+        default: this.options.arg ? to.slug(this.options.arg) : undefined
       },
       {
         type: 'input',
@@ -41,7 +42,7 @@ module.exports = yeoman.Base.extend({
       }
     ];
 
-    return this.prompt(prompts).then(function (props) {
+    return this.prompt(prompts).then(props => {
       //
       // Read package configuration.
       //
@@ -62,51 +63,47 @@ module.exports = yeoman.Base.extend({
           desc      : props.argDesc
         }
       };
-    }.bind(this));
-  },
+    });
+  }
 
-  writing: {
+  writing() {
     //
     // Create directories
     //
-    dirs: function () {
-      var ok = true;
-      var dstDir = path.join('src', 'services', this.props.svc.name.camel);
+    var ok = true;
+    var dstDir = path.join('src', 'services', this.props.svc.name.camel);
 
-      try {
-        mkdirp.sync(dstDir);
-      } catch (e) {
-        ok = false;
+    try {
+      mkdirp.sync(dstDir);
+    } catch (e) {
+      ok = false;
 
-        this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
-                 chalk.magenta.bold(dstDir));
-        this.log(chalk.yellow(e.message) + '\n');
-      } finally {
-        if (ok) {
-          this.dstError = false;
-        } else {
-          this.dstError = true;
-        }
+      this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
+                chalk.magenta.bold(dstDir));
+      this.log(chalk.yellow(e.message) + '\n');
+    } finally {
+      if (ok) {
+        this.dstError = false;
+      } else {
+        this.dstError = true;
       }
-    },
+    }
+
+    if (this.dstError) {
+      return;
+    }
 
     //
     // Copy sources files
     //
-    sources: function () {
-      if (this.dstError) {
-        return;
-      }
+    this.fs.copyTpl(
+      this.templatePath('_service.js'),
+      this.destinationPath(path.join(dstDir, this.props.svc.name.camel + '.service.js')),
+      this.props);
 
-      var dstDir = path.join('src', 'services', this.props.svc.name.camel);
-
-      this.template('_service.js',
-                    path.join(dstDir, this.props.svc.name.camel + '.service.js'),
-                    this.props);
-
-      this.template('_service.spec.js',
-                    path.join(dstDir, this.props.svc.name.camel + '.service.spec.js'),
-                    this.props);
-    }
+    this.fs.copyTpl(
+      this.templatePath('_service.spec.js'),
+      this.destinationPath(path.join(dstDir, this.props.svc.name.camel + '.service.spec.js')),
+      this.props);
   }
-});
+};
