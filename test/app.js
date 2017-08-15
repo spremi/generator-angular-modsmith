@@ -6,7 +6,20 @@ var helpers = require('yeoman-test');
 describe('generator-angular-modsmith:app', function () {
   before(function () {
     return helpers.run(path.join(__dirname, '../generators/app'))
-      .withPrompts({someAnswer: true})
+      .withPrompts({
+        argName: 'test-mod',
+        argDesc: 'Test Module',
+        argVersion: '0.0.1',
+        argRepo: '',
+        argLicense: 'Apache-2.0',
+        argRestrict: 'E',
+        argBuild: 'gulp',
+        argKeywords: ['aa', 'bb', 'cc'],
+        argAuthorName: 'Some One',
+        argAuthorEmail: 'some@one.two',
+        argAuthorHome: '',
+        argBowerJson: true
+      })
       .toPromise();
   });
 
