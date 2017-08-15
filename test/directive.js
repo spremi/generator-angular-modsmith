@@ -27,7 +27,13 @@ describe('generator-angular-modsmith:directive', function () {
           url: ''
         }
       })
-      .withPrompts({argName: 'alpha-beta'})
+      .withPrompts({
+        argName: 'alpha-beta',
+        argExtTpl: true,
+        argStyle: true,
+        argLinkFn: true,
+        argRestrict: 'E'
+      })
       .toPromise();
   });
 
