@@ -54,7 +54,7 @@ module.exports = yeoman.Base.extend({
       },
       {
         type: 'confirm',
-        name: 'argRestrict',
+        name: 'argLinkFn',
         message: chalk.yellow('Create link() function?'),
         default: true
       },
