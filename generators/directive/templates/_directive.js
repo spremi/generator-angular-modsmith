@@ -14,7 +14,7 @@
   /**
    * @ngdoc directive
    * @name <%= pkg.name.camel %>.<%= dtv.name.camel %>
-   * @restrict E
+   * @restrict <%= dtv.restrict %>
    *
    * @description
    * <%= dtv.desc %>.
