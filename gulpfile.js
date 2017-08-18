@@ -28,7 +28,8 @@ gulp.task('pre-test', function () {
   return gulp.src(
     [
       'generators/**/*.js',
-      '!generators/**/templates/*.js'
+      '!generators/**/templates/*.js',
+      '!generators/**/templates/test/*.js'
     ])
     .pipe(excludeGitignore())
     .pipe(istanbul({
