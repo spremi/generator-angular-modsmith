@@ -1,13 +1,16 @@
-# angular-modsmith Generator
+# generator-angular-modsmith
 Yeoman generator for quickly setting up a project for implementing an AngularJS 1.x module (**not application**).
- - Choice of Grunt / Gulp as the build system.
- - Sub-generators for directives and services.
- - Uses *stylus* for stylesheets
- - Uses *eslint* for static code checking.
- - Uses *Karma* + *Jasmine* for unit testing and *coverage* reporter for code coverage.
 
 > Stability - Alpha :construction:
-> The generator under active development. See the TODO list below.
+
+## Features
+ - Choice of Grunt / Gulp as the build system.
+ - Sub-generators for directives and services.
+ - Uses *stylus* for stylesheets.
+ - Uses *eslint* with *eslint-plugin-angular* for static code checking.
+ - Uses *Karma* + *Jasmine* for unit testing and *coverage* reporter for code coverage.
+
+> The generator is under active development. See the TODO list below.
 
 ## Installation
 Install `yo`, if it isn't already installed:
@@ -24,15 +27,33 @@ Run `yo angular-modsmith` in the directory of your choice:
 ```sh
 yo angular-modsmith
 ```
-## Available generators
-### default
+### Available generators
+#### default
 Default generator for setting up a new module.
 
-### directive
+#### directive
 Generates code for a directive.
 
-### service
+#### service
 Generates code for a service.
+
+### Build tasks in generated modules
+These tasks are available on both **Grunt** and **Gulp** (_under development_).
+#### eslint/ lint
+Perform static type checking of the module sources. It is the _**default**_ task.
+
+#### karma/ test
+Executes unit tests for the modules and shows code coverage data.
+
+#### build
+Performs series of tasks required to build the distribution package.
+Built package is available in the directory `dist`.
+
+#### clean
+Deletes contents of temporary and distribution directories.
+
+#### all
+Executes these tasks in sequence: `clean`, `eslint`, `test`, `build`.
 
 ## TODO
 
@@ -40,8 +61,7 @@ Generates code for a service.
 - [x] Update dependencies, if necessary
 - [x] Migrate from `grunt-autoprefixer` to `grunt-postcss`
 - [ ] Migrate to yeoman-generator 1.0
-- [ ] Migrate to IIFE syntax
-- [ ] Support for ui-router
+- [x] Migrate to IIFE syntax
 - [ ] Optimize build steps
 
 > Some of these items are fully/ partially implemented in my local repo.
