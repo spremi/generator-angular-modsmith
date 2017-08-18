@@ -8,15 +8,17 @@
 //
 
 
-'use strict';
+(function () {
+  'use strict';
 
-/**
- * @ngdoc overview
- * @name <%= pkg.name.camel %>
- *
- * @description
- * <%= pkg.desc %>
- *
- * Module definition.
- */
-angular.module('<%= pkg.name.camel %>', []);
+  /**
+   * @ngdoc overview
+   * @name <%= pkg.name.camel %>
+   *
+   * @description
+   * <%= pkg.desc %>
+   *
+   * Module definition.
+   */
+  angular.module('<%= pkg.name.camel %>', []);
+})();
