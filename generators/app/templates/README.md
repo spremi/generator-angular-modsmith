@@ -9,11 +9,13 @@
 $ npm install install <%= pkg.name.slug %>
 ```
 
+<% if (bowerJson) { -%>
 ### via bower
 ```bash
 $ bower install <%= pkg.name.slug %>
 ```
 
+<% } -%>
 ## Usage
 
 Provide usage instructions here.
