@@ -262,6 +262,11 @@ module.exports = function (grunt) {
   ]);
 
   //
+  // Lint the module
+  //
+  grunt.registerTask('lint', ['eslint']);
+
+  //
   // Test the module
   //
   grunt.registerTask('test', ['karma']);
