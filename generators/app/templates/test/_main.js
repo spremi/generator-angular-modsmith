@@ -4,6 +4,8 @@
 // Test application for unit tests.
 //
 
-'use strict';
+(function () {
+  'use strict';
 
-angular.module('testApp', ['<%= pkg.name.camel %>']);
+  angular.module('testApp', ['<%= pkg.name.camel %>']);
+})();
