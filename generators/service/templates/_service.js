@@ -7,17 +7,20 @@
 //
 
 
-'use strict';
+(function () {
+  'use strict';
 
-/**
- * @ngdoc service
- * @name <%= pkg.name.camel %>.<%= svc.name.camel %>
- *
- * @description
- * <%= svc.desc %>.
- */
-angular.module('<%= pkg.name.camel %>')
-  .service('<%= svc.name.camel %>', function () {
+  /**
+   * @ngdoc service
+   * @name <%= pkg.name.camel %>.<%= svc.name.camel %>
+   *
+   * @description
+   * <%= svc.desc %>.
+   */
+  angular.module('<%= pkg.name.camel %>')
+    .service('<%= svc.name.camel %>', <%= svc.name.camel %>Fn);
+
+  function <%= svc.name.camel %>Fn() {
     /**
      * @ngdoc function
      * @name <%= svc.name.camel %>.greet
@@ -31,4 +34,5 @@ angular.module('<%= pkg.name.camel %>')
     this.greet = function (name) {
       return 'Hello ' + name + '!';
     };
-  });
+  }
+})();
