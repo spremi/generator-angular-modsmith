@@ -8,21 +8,23 @@
 //
 
 
-'use strict';
+(function () {
+  'use strict';
 
-/**
- * @ngdoc directive
- * @name <%= pkg.name.camel %>.<%= dtv.name.camel %>
- * @restrict E
- *
- * @description
- * <%= dtv.desc %>.
- */
-angular.module('<%= pkg.name.camel %>')
-  .directive('<%= dtv.name.camel %>', function () {
-    return {
-      scope: {
-      },
+  /**
+   * @ngdoc directive
+   * @name <%= pkg.name.camel %>.<%= dtv.name.camel %>
+   * @restrict E
+   *
+   * @description
+   * <%= dtv.desc %>.
+   */
+  angular.module('<%= pkg.name.camel %>')
+    .directive('<%= dtv.name.camel %>', <%= dtv.name.camel %>);
+
+  function <%= dtv.name.camel %>() {
+    var directive = {
+      restrict: '<%= dtv.restrict %>',
 <%
 if (dtv.extTpl) {
 -%>
@@ -37,11 +39,23 @@ if (dtv.extTpl) {
 <%
 if (dtv.linkFn) {
 -%>
-      link: function (/* scope, element, attrs */) {
-      },
+      link: <%= dtv.name.camel %>Link,
 <%
 }
 -%>
-      restrict: '<%= dtv.restrict %>'
+      scope: {
+      }
     };
-  });
+
+    return directive;
+<%
+if (dtv.linkFn) {
+-%>
+
+    function <%= dtv.name.camel %>Link(/* scope, element, attrs */) {
+    }
+<%
+}
+-%>
+  }
+})();
