@@ -272,6 +272,16 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['karma']);
 
   //
+  // Build the module afresh
+  //
+  grunt.registerTask('all', [
+    'clean',
+    'eslint',
+    'karma',
+    'build'
+  ]);
+
+  //
   // Default task
   //
   grunt.registerTask('default', ['eslint']);
