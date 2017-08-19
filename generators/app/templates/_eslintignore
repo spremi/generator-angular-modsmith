@@ -1,1 +1,8 @@
 #
+# <%= pkg.name.slug %>
+#
+# Patterns of files and directories that eslint should ignore
+#
+
+.tmp/
+dist/
