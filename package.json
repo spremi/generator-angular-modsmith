@@ -1,6 +1,6 @@
 {
   "name": "generator-angular-modsmith",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generate AngularJS modules",
   "homepage": "https://github.com/spremi/generator-angular-modsmith",
   "author": {
