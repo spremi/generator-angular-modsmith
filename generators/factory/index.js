@@ -88,6 +88,25 @@ module.exports = yeoman.Base.extend({
           this.dstError = true;
         }
       }
+    },
+
+    //
+    // Copy sources files
+    //
+    sources: function () {
+      if (this.dstError) {
+        return;
+      }
+
+      var dstDir = path.join('src', 'factories', this.props.fct.name.camel);
+
+      this.template('_factory.js',
+                    path.join(dstDir, this.props.fct.name.camel + '.factory.js'),
+                    this.props);
+
+      this.template('_factory.spec.js',
+                    path.join(dstDir, this.props.fct.name.camel + '.factory.spec.js'),
+                    this.props);
     }
   },
 
