@@ -108,9 +108,5 @@ module.exports = yeoman.Base.extend({
                     path.join(dstDir, this.props.fct.name.camel + '.factory.spec.js'),
                     this.props);
     }
-  },
-
-  install: function () {
-    this.installDependencies();
   }
 });
