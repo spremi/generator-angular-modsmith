@@ -6,13 +6,40 @@ var helpers = require('yeoman-test');
 describe('generator-angular-modsmith:factory', function () {
   before(function () {
     return helpers.run(path.join(__dirname, '../generators/factory'))
-      .withPrompts({someAnswer: true})
+      .withLocalConfig({
+        pkg: {
+          name: {
+            orig: 'test-mod',
+            slug: 'test-mod',
+            camel: 'testMod'
+          },
+          desc: 'Test Module',
+          version: '0.0.1',
+          repo: '',
+          license: 'Apache-2.0',
+          keywords: [
+            'key', 'word'
+          ]
+        },
+        author: {
+          name: 'Some One',
+          email: 'some@one.two',
+          url: ''
+        }
+      })
+      .withPrompts({argName: 'echo-tau'})
       .toPromise();
   });
 
-  it('creates files', function () {
+  it('Creates source file', function () {
     assert.file([
-      'dummyfile.txt'
+      'src/factories/echoTau/echoTau.factory.js'
+    ]);
+  });
+
+  it('Creates spec file', function () {
+    assert.file([
+      'src/factories/echoTau/echoTau.factory.spec.js'
     ]);
   });
 });
