@@ -37,6 +37,9 @@ Generates code for a directive.
 #### service
 Generates code for a service.
 
+#### factory
+Generates code for a factory.
+
 ### Build tasks in generated modules
 These tasks are available on both **Grunt** and **Gulp** (_under development_).
 #### eslint/ lint
