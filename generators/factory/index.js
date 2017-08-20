@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var to = require('to-case');
 
 module.exports = yeoman.Base.extend({
   initializing: function () {
@@ -12,17 +13,31 @@ module.exports = yeoman.Base.extend({
   },
 
   prompting: function () {
-    // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the good ' + chalk.red('generator-angular-modsmith') + ' generator!'
+      'Welcome to the ' + chalk.red('angular-modsmith') + ' generator!'
     ));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someAnswer',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+    if (typeof this.arg === 'undefined') {
+      this.log(chalk.blue.bold('Creating new factory...') + '\n');
+    } else {
+      this.log(chalk.blue.bold('Creating factory') + ' ' +
+               chalk.magenta.bold(this.arg) + chalk.blue.bold('...') + '\n');
+    }
+
+    var prompts = [
+      {
+        type: 'input',
+        name: 'argName',
+        message: chalk.yellow('Factory name :'),
+        default: this.arg ? to.slug(this.arg) : undefined
+      },
+      {
+        type: 'input',
+        name: 'argDesc',
+        message: chalk.yellow('Factory desc :'),
+        default: 'TODO: Add factory description.'
+      }
+    ];
 
     return this.prompt(prompts).then(function (props) {
       // To access props later use this.props.someAnswer;
