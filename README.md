@@ -1,44 +1,82 @@
 # generator-angular-modsmith
-Yeoman generator for quickly setting up a project for implementing an AngularJS 1.x module (**not application**).
+Yeoman generator to quickly setup a project for implementing an AngularJS 1.x module (**not application**).
 
-> Stability - Alpha :construction:
+:construction:
+
+| Attribute | Status|
+| :--- | :--- |
+| **Stability** | Beta |
+| **Features**   | Alpha |
 
 ## Features
- - Choice of Grunt / Gulp as the build system.
- - Sub-generators for directives and services.
- - Uses *stylus* for stylesheets.
- - Uses *eslint* with *eslint-plugin-angular* for static code checking.
- - Uses *Karma* + *Jasmine* for unit testing and *coverage* reporter for code coverage.
+- Choice of build systems:
+  - Grunt
+  - Gulp _(Under development)_
+- Sub-generators to generate code for:
+  - Directive
+  - Factory
+  - Service
+- The generated code:
+  - Contains file headers.
+  - Contains comments compatible with *ngdoc*.
+  - Follows *IIFE* syntax.
+- Supports **Stylus** for stylesheets.
+- Uses **ESLint** for static code checking.
+  - Uses *eslint-plugin-angular* for checking code against best practices.
+- Uses *Karma* + *Jasmine* for unit testing.
+  - Uses *coverage* reporter for code coverage.
 
-> The generator is under active development. See the TODO list below.
+### Under development
+These features are under active development:
+- [ ] Complete support for GulpJS
+- [x] Update dependencies, if necessary
+- [x] Migrate from `grunt-autoprefixer` to `grunt-postcss`
+- [ ] Migrate to yeoman-generator 1.0
+- [x] Migrate to IIFE syntax
+- [ ] Optimize build steps
+- [ ] Commit files into `git` as specific commit.
+
+The code associated with these features can be viewed in corresponding
+branches. The latest code, however, may still be in my local repo.
 
 ## Installation
-Install `yo`, if it isn't already installed:
+Install **Yeoman**, if it isn't already installed:
 ```sh
 npm install -g yo
 ```
-Install `generator-angular-modsmith`:
+Install **this** generator:
 ```sh
-npm install -g yo gulp-cli generator-angular-modsmith
+npm install -g generator-angular-modsmith
 ```
 
 ## Usage
-Run `yo angular-modsmith` in the directory of your choice:
+Run this command in the directory of your choice:
 ```sh
 yo angular-modsmith
 ```
 ### Available generators
 #### default
 Default generator for setting up a new module.
-
+```sh
+yo angular-modsmith
+```
 #### directive
-Generates code for a directive.
-
+Generates code for a directive in the module.
+```sh
+yo angular-modsmith:directive
+```
 #### service
-Generates code for a service.
-
+Generates code for a service in the module.
+```sh
+yo angular-modsmith:service
+```
 #### factory
-Generates code for a factory.
+Generates code for a factory in the module.
+```sh
+yo angular-modsmith:factory
+```
+
+> Name of the module/ directive/ service/ factory can, optionally, be provided as a parameter to these commands.
 
 ### Build tasks in generated modules
 These tasks are available on both **Grunt** and **Gulp** (_under development_).
@@ -57,18 +95,6 @@ Deletes contents of temporary and distribution directories.
 
 #### all
 Executes these tasks in sequence: `clean`, `eslint`, `test`, `build`.
-
-## TODO
-
-- [ ] Complete support for GulpJS
-- [x] Update dependencies, if necessary
-- [x] Migrate from `grunt-autoprefixer` to `grunt-postcss`
-- [ ] Migrate to yeoman-generator 1.0
-- [x] Migrate to IIFE syntax
-- [ ] Optimize build steps
-
-> Some of these items are fully/ partially implemented in my local repo.
-Need to be rebased and tested.
 
 ## Acknowledgement
 I have been using [angular-fullstack-generator](https://github.com/angular-fullstack/generator-angular-fullstack) v2.1.1 to setup my applications for a few years now. As a result, there may be similarities in the template code.
