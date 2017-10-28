@@ -1,10 +1,11 @@
 'use strict';
-var path = require('path');
-var assert = require('yeoman-assert');
-var helpers = require('yeoman-test');
 
-describe('generator-angular-modsmith:service', function () {
-  before(function () {
+const path = require('path');
+const assert = require('yeoman-assert');
+const helpers = require('yeoman-test');
+
+describe('generator-angular-modsmith:service', ()  => {
+  before(() => {
     return helpers.run(path.join(__dirname, '../generators/service'))
       .withLocalConfig({
         pkg: {
@@ -31,13 +32,13 @@ describe('generator-angular-modsmith:service', function () {
       .toPromise();
   });
 
-  it('Creates source file', function () {
+  it('Creates source file', () => {
     assert.file([
       'src/services/deltaPhi/deltaPhi.service.js'
     ]);
   });
 
-  it('Creates spec file', function () {
+  it('Creates spec file', () => {
     assert.file([
       'src/services/deltaPhi/deltaPhi.service.spec.js'
     ]);
