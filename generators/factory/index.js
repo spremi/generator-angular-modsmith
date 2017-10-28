@@ -1,37 +1,45 @@
 'use strict';
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
-var to = require('to-case');
-var path = require('path');
-var mkdirp = require('mkdirp');
 
-module.exports = yeoman.Base.extend({
-  initializing: function () {
+const Generator = require('yeoman-generator');
+const chalk = require('chalk');
+const yosay = require('yosay');
+const path = require('path');
+const to = require('to-case');
+const mkdirp = require('mkdirp');
+
+module.exports = class extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
+
     //
     // Get command-line argument, if any
     //
-    this.argument('arg', {type: String, required: false});
-  },
+    this.argument('arg',
+      {
+        type: String,
+        required: false,
+        desc: 'Name of the factory'
+      });
+  }
 
-  prompting: function () {
+  prompting() {
     this.log(yosay(
       'Welcome to the ' + chalk.red('angular-modsmith') + ' generator!'
     ));
 
-    if (typeof this.arg === 'undefined') {
+    if (typeof this.options.arg === 'undefined') {
       this.log(chalk.blue.bold('Creating new factory...') + '\n');
     } else {
       this.log(chalk.blue.bold('Creating factory') + ' ' +
-               chalk.magenta.bold(this.arg) + chalk.blue.bold('...') + '\n');
+               chalk.magenta.bold(this.options.arg) + chalk.blue.bold('...') + '\n');
     }
 
-    var prompts = [
+    const prompts = [
       {
         type: 'input',
         name: 'argName',
         message: chalk.yellow('Factory name :'),
-        default: this.arg ? to.slug(this.arg) : undefined
+        default: this.options.arg ? to.slug(this.options.arg) : undefined
       },
       {
         type: 'input',
@@ -41,7 +49,7 @@ module.exports = yeoman.Base.extend({
       }
     ];
 
-    return this.prompt(prompts).then(function (props) {
+    return this.prompt(prompts).then(props => {
       //
       // Read package configuration.
       //
@@ -62,51 +70,49 @@ module.exports = yeoman.Base.extend({
           desc      : props.argDesc
         }
       };
-    }.bind(this));
-  },
+    });
+  }
 
-  writing: {
-    //
-    // Create directories
-    //
-    dirs: function () {
-      var ok = true;
-      var dstDir = path.join('src', 'factories', this.props.fct.name.camel);
+  /**
+   * Private function to create directory
+   */
+  _createDir(dst) {
+    var dirOk = true;
 
-      try {
-        mkdirp.sync(dstDir);
-      } catch (e) {
-        ok = false;
+    try {
+      mkdirp.sync(dst);
+    } catch (e) {
+      dirOk = false;
 
-        this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
-                 chalk.magenta.bold(dstDir));
-        this.log(chalk.yellow(e.message) + '\n');
-      } finally {
-        if (ok) {
-          this.dstError = false;
-        } else {
-          this.dstError = true;
-        }
-      }
-    },
+      this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
+               chalk.magenta.bold(dst));
+      this.log(chalk.yellow(e.message) + '\n');
+    }
 
-    //
-    // Copy sources files
-    //
-    sources: function () {
-      if (this.dstError) {
-        return;
-      }
-
-      var dstDir = path.join('src', 'factories', this.props.fct.name.camel);
-
-      this.template('_factory.js',
-        path.join(dstDir, this.props.fct.name.camel + '.factory.js'),
-        this.props);
-
-      this.template('_factory.spec.js',
-        path.join(dstDir, this.props.fct.name.camel + '.factory.spec.js'),
-        this.props);
+    if (!dirOk) {
+      return this.error(new Error('Failed to create directory: ' + dst));
     }
   }
-});
+
+  /**
+   * Private function to copy source files
+   */
+  _copySourceFiles(dst) {
+    this.fs.copyTpl(
+      this.templatePath('_factory.js'),
+      this.destinationPath(path.join(dst, this.props.fct.name.camel + '.factory.js')),
+      this.props);
+
+    this.fs.copyTpl(
+      this.templatePath('_factory.spec.js'),
+      this.destinationPath(path.join(dst, this.props.fct.name.camel + '.factory.spec.js')),
+      this.props);
+  }
+
+  writing() {
+    var dstDir = path.join('src', 'factories', this.props.fct.name.camel);
+
+    this._createDir(dstDir);
+    this._copySourceFiles(dstDir);
+  }
+};

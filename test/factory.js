@@ -1,7 +1,8 @@
 'use strict';
-var path = require('path');
-var assert = require('yeoman-assert');
-var helpers = require('yeoman-test');
+
+const path = require('path');
+const assert = require('yeoman-assert');
+const helpers = require('yeoman-test');
 
 describe('generator-angular-modsmith:factory', function () {
   before(function () {
@@ -31,13 +32,13 @@ describe('generator-angular-modsmith:factory', function () {
       .toPromise();
   });
 
-  it('Creates source file', function () {
+  it('Creates source file', () => {
     assert.file([
       'src/factories/echoTau/echoTau.factory.js'
     ]);
   });
 
-  it('Creates spec file', function () {
+  it('Creates spec file', () => {
     assert.file([
       'src/factories/echoTau/echoTau.factory.spec.js'
     ]);
