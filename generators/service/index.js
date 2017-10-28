@@ -109,10 +109,32 @@ module.exports = class extends Generator {
       this.props);
   }
 
+  /**
+   * Private function to add sources to git repo and commit
+   */
+  _gitCommit(dst) {
+    const sgit = require('simple-git')(this.destinationRoot());
+
+    var msg = 'chore: Add service \'' + this.props.svc.name.slug + '\'\n' +
+              '\n' +
+              'Created by generator-angular-modsmith v' +
+              this.rootGeneratorVersion() + '.\n';
+
+    sgit.add(dst).commit(msg);
+
+    this.log(chalk.white.bold('\nCommitted to repo.\n'));
+  }
+
   writing() {
     var dstDir = path.join('src', 'services', this.props.svc.name.camel);
 
     this._createDir(dstDir);
     this._copySourceFiles(dstDir);
+  }
+
+  end() {
+    var dstDir = path.join('src', 'services', this.props.svc.name.camel);
+
+    this._gitCommit(dstDir);
   }
 };
