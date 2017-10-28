@@ -1,35 +1,48 @@
 'use strict';
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
-var path = require('path');
-var to = require('to-case');
-var mkdirp = require('mkdirp');
 
-module.exports = yeoman.Base.extend({
-  initializing: function () {
+const Generator = require('yeoman-generator');
+const chalk = require('chalk');
+const yosay = require('yosay');
+const path = require('path');
+const to = require('to-case');
+const mkdirp = require('mkdirp');
+
+module.exports = class extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
+
     //
     // Get command-line argument, if any
     //
-    this.argument('arg', {type: String, required: false});
+    this.argument('arg',
+      {
+        type: String,
+        required: false,
+        desc: 'Name of the module'
+      });
 
     //
     // Get name of current directory
     //
     this.dir = path.basename(process.cwd());
-  },
+  }
 
-  prompting: function () {
+  prompting() {
     this.log(yosay(
       'Welcome to the ' + chalk.green('angular-modsmith') + ' generator!'
     ));
 
-    var prompts = [
+    if (typeof this.options.arg !== 'undefined') {
+      this.log(chalk.blue.bold('Creating module') + ' ' +
+        chalk.magenta.bold(this.options.arg) + chalk.blue.bold('...') + '\n');
+    }
+
+    const prompts = [
       {
         type: 'input',
         name: 'argName',
         message: chalk.yellow('Package name :'),
-        default: this.arg || this.dir
+        default: this.options.arg || this.dir
       },
       {
         type: 'input',
@@ -154,7 +167,7 @@ module.exports = yeoman.Base.extend({
       }
     ];
 
-    return this.prompt(prompts).then(function (props) {
+    return this.prompt(prompts).then(props => {
       this.props = {
         pkg : {
           name  : {
@@ -176,162 +189,224 @@ module.exports = yeoman.Base.extend({
         },
         bowerJson : props.argBowerJson
       };
-    }.bind(this));
-  },
+    });
+  }
 
-  writing: {
-    //
-    // Copy base configuration files
-    //
-    base: function () {
-      this.template('_package.json',  'package.json',   this.props);
-      this.template('_npmignore',     '.npmignore',     this.props);
-      this.template('_gitignore',     '.gitignore',     this.props);
-      this.template('_gitattributes', '.gitattributes', this.props);
-      this.template('README.md',      'README.md',      this.props);
-      this.template('_editorconfig',  '.editorconfig',  this.props);
-      this.template('_eslintignore',  '.eslintignore',  this.props);
-      this.template('_eslintrc.js',   '.eslintrc.js',   this.props);
+  /**
+   * Private function to copy base configuration files
+   */
+  _copyBaseFiles() {
+    this.fs.copyTpl(
+      this.templatePath('_package.json'),
+      this.destinationPath('package.json'),
+      this.props);
 
-      if (this.props.pkg.build === 'gulp') {
-        this.template('_gulpfile.js', 'gulpfile.js', this.props);
-      }
+    this.fs.copyTpl(
+      this.templatePath('_npmignore'),
+      this.destinationPath('.npmignore'),
+      this.props);
 
-      if (this.props.pkg.build === 'grunt') {
-        this.template('_Gruntfile.js', 'Gruntfile.js', this.props);
-      }
+    this.fs.copyTpl(
+      this.templatePath('_gitignore'),
+      this.destinationPath('.gitignore'),
+      this.props);
 
-      if (this.props.bowerJson) {
-        this.template('_bower.json', 'bower.json', this.props);
-      }
-    },
+    this.fs.copyTpl(
+      this.templatePath('_gitattributes'),
+      this.destinationPath('.gitattributes'),
+      this.props);
 
-    //
-    // Copy LICENSE
-    //
-    license: function () {
-      var licenseTpl = '';
+    this.fs.copyTpl(
+      this.templatePath('_editorconfig'),
+      this.destinationPath('.editorconfig'),
+      this.props);
 
-      switch (this.props.pkg.license) {
-        case 'Apache-2.0':
-          licenseTpl = 'licenses/LICENSE_APACHE_2_0';
-          break;
+    this.fs.copyTpl(
+      this.templatePath('_eslintignore'),
+      this.destinationPath('.eslintignore'),
+      this.props);
 
-        case 'BSD-2-Clause':
-          licenseTpl = 'licenses/LICENSE_BSD_2_CLAUSE';
-          break;
+    this.fs.copyTpl(
+      this.templatePath('_eslintrc.js'),
+      this.destinationPath('.eslintrc.js'),
+      this.props);
 
-        case 'BSD-3-Clause':
-          licenseTpl = 'licenses/LICENSE_BSD_3_CLAUSE';
-          break;
+    this.fs.copyTpl(
+      this.templatePath('README.md'),
+      this.destinationPath('README.md'),
+      this.props);
 
-        case 'GPL-2.0':
-          licenseTpl = 'licenses/LICENSE_GPL_2_0';
-          break;
+    this.fs.copyTpl(
+      this.templatePath('_index.js'),
+      this.destinationPath('index.js'),
+      this.props);
+  }
 
-        case 'GPL-3.0':
-          licenseTpl = 'licenses/LICENSE_GPL_3_0';
-          break;
+  /**
+   * Private function to copy license file
+   */
+  _copyLicense() {
+    var licenseTpl = '';
 
-        case 'LGPL-2.1':
-          licenseTpl = 'licenses/LICENSE_LGPL_2_1';
-          break;
+    switch (this.props.pkg.license) {
+      case 'Apache-2.0':
+        licenseTpl = 'licenses/LICENSE_APACHE_2_0';
+        break;
 
-        case 'LGPL-3.0':
-          licenseTpl = 'licenses/LICENSE_LGPL_3_0';
-          break;
+      case 'BSD-2-Clause':
+        licenseTpl = 'licenses/LICENSE_BSD_2_CLAUSE';
+        break;
 
-        case 'MIT':
-          licenseTpl = 'licenses/LICENSE_MIT';
-          break;
+      case 'BSD-3-Clause':
+        licenseTpl = 'licenses/LICENSE_BSD_3_CLAUSE';
+        break;
 
-        default:
-          licenseTpl = 'licenses/LICENSE_OTHER';
-          break;
-      }
+      case 'GPL-2.0':
+        licenseTpl = 'licenses/LICENSE_GPL_2_0';
+        break;
 
-      this.template(licenseTpl, 'LICENSE', this.props);
-    },
+      case 'GPL-3.0':
+        licenseTpl = 'licenses/LICENSE_GPL_3_0';
+        break;
 
-    //
-    // Create source directories
-    //
-    srcdir: function () {
-      var ok = true;
+      case 'LGPL-2.1':
+        licenseTpl = 'licenses/LICENSE_LGPL_2_1';
+        break;
 
-      try {
-        mkdirp.sync('src');
-      } catch (e) {
-        ok = false;
+      case 'LGPL-3.0':
+        licenseTpl = 'licenses/LICENSE_LGPL_3_0';
+        break;
 
-        this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
-                 chalk.magenta.bold('src'));
-        this.log(chalk.yellow(e.message) + '\n');
-      } finally {
-        if (ok) {
-          this.dstError = false;
-        } else {
-          this.dstError = true;
-        }
-      }
-    },
+      case 'MIT':
+        licenseTpl = 'licenses/LICENSE_MIT';
+        break;
+
+      default:
+        licenseTpl = 'licenses/LICENSE_OTHER';
+        break;
+    }
+
+    this.fs.copyTpl(
+      this.templatePath(licenseTpl),
+      this.destinationPath('LICENSE'),
+      this.props);
+  }
+
+  /**
+   * Private function to copy build script
+   */
+  _copyBuildScript() {
+    if (this.props.pkg.build === 'gulp') {
+      this.fs.copyTpl(
+        this.templatePath('_gulpfile.js'),
+        this.destinationPath('gulpfile.js'),
+        this.props);
+    }
+
+    if (this.props.pkg.build === 'grunt') {
+      this.fs.copyTpl(
+        this.templatePath('_Gruntfile.js'),
+        this.destinationPath('Gruntfile.js'),
+        this.props);
+    }
+  }
+
+  /**
+   * Private function to copy build script
+   */
+  _copyBowerJson() {
+    if (this.props.bowerJson) {
+      this.fs.copyTpl(
+        this.templatePath('_bower.json'),
+        this.destinationPath('bower.json'),
+        this.props);
+    }
+  }
+
+  /**
+   * Private function to copy source files
+   */
+  _copySourceFiles() {
+    var dirOk = true;
+
+    try {
+      mkdirp.sync('src');
+    } catch (e) {
+      dirOk = false;
+
+      this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
+               chalk.magenta.bold('src'));
+      this.log(chalk.yellow(e.message) + '\n');
+    }
+
+    if (!dirOk) {
+      return this.error(new Error('Failed to create directory: src'));
+    }
 
     //
     // Create source files
     //
-    sources: function () {
-      if (this.dstError) {
-        return;
-      }
-      this.template('_module.js', 'src/index.js', this.props);
-      this.template('_index.js', 'index.js', this.props);
-    },
+    this.fs.copyTpl(
+      this.templatePath('_module.js'),
+      this.destinationPath('src/index.js'),
+      this.props);
 
-    //
-    // Create test directories
-    //
-    tstdir: function () {
-      var ok = true;
+    this.fs.copyTpl(
+      this.templatePath('_index.js'),
+      this.destinationPath('index.js'),
+      this.props);
+  }
 
-      try {
-        mkdirp.sync('test');
-      } catch (e) {
-        ok = false;
+  /**
+   * Private function to copy test files
+   */
+  _copyTestFiles() {
+    var dirOk = true;
 
-        this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
-                 chalk.magenta.bold('test'));
-        this.log(chalk.yellow(e.message) + '\n');
-      } finally {
-        if (ok) {
-          this.dstError = false;
-        } else {
-          this.dstError = true;
-        }
-      }
-    },
+    try {
+      mkdirp.sync('test');
+    } catch (e) {
+      dirOk = false;
 
-    //
-    // Create test sources
-    //
-    tests: function () {
-      if (this.dstError) {
-        return;
-      }
-      this.template('test/_karma.conf.js', 'test/karma.conf.js', this.props);
-      this.template('test/_main.js', 'test/main.js', this.props);
+      this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
+               chalk.magenta.bold('test'));
+      this.log(chalk.yellow(e.message) + '\n');
     }
 
-  },
+    if (!dirOk) {
+      return this.error(new Error('Failed to create directory: test'));
+    }
 
-  install: function () {
+    this.fs.copyTpl(
+      this.templatePath('test/_karma.conf.js'),
+      this.destinationPath('test/karma.conf.js'),
+      this.props);
+
+    this.fs.copyTpl(
+      this.templatePath('test/_main.js'),
+      this.destinationPath('test/main.js'),
+      this.props);
+  }
+
+  writing() {
+    this._copyBaseFiles();
+    this._copyLicense();
+    this._copyBuildScript();
+    this._copyBowerJson();
+    this._copySourceFiles();
+    this._copyTestFiles();
+  }
+
+  install() {
     this.config.set('pkg', this.props.pkg);
     this.config.set('author', this.props.author);
 
     this.log(chalk.white.bold('\nInstalling dependencies...\n'));
 
-    this.npmInstall()
-      .on('end', function () {
-        this.log(chalk.green.bold('\nReady.\n'));
-      });
+    this.npmInstall();
   }
-});
+
+  end() {
+    this.log(chalk.green.bold('\nReady.\n'));
+  }
+};

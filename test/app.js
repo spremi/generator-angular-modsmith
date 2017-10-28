@@ -3,8 +3,8 @@ var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-describe('generator-angular-modsmith:app', function () {
-  before(function () {
+describe('generator-angular-modsmith:app', () => {
+  before(() => {
     return helpers.run(path.join(__dirname, '../generators/app'))
       .withPrompts({
         argName: 'test-mod',
@@ -23,73 +23,73 @@ describe('generator-angular-modsmith:app', function () {
       .toPromise();
   });
 
-  it('Creates README', function () {
+  it('Creates README', () => {
     assert.file([
       'README.md'
     ]);
   });
 
-  it('Creates LICENSE', function () {
+  it('Creates LICENSE', () => {
     assert.file([
       'LICENSE'
     ]);
   });
 
-  it('Creates package.json', function () {
+  it('Creates package.json', () => {
     assert.file([
       'package.json'
     ]);
   });
 
-  it('Creates configuration files for GIT', function () {
+  it('Creates configuration files for GIT', () => {
     assert.file([
       '.gitattributes',
       '.gitignore'
     ]);
   });
 
-  it('Creates configuration files for ESLINT', function () {
+  it('Creates configuration files for ESLINT', () => {
     assert.file([
       '.eslintignore',
       '.eslintrc.js'
     ]);
   });
 
-  it('Creates .editorconfig', function () {
+  it('Creates .editorconfig', () => {
     assert.file([
       '.editorconfig'
     ]);
   });
 
-  it('Creates .npmignore', function () {
+  it('Creates .npmignore', () => {
     assert.file([
       '.npmignore'
     ]);
   });
 });
 
-describe('generator-angular-modsmith:app [grunt])', function () {
-  before(function () {
+describe('generator-angular-modsmith:app [grunt])', () => {
+  before(() => {
     return helpers.run(path.join(__dirname, '../generators/app'))
       .withPrompts({argBuild: 'grunt'})
       .toPromise();
   });
 
-  it('Creates Gruntfile.js', function () {
+  it('Creates Gruntfile.js', () => {
     assert.file([
       'Gruntfile.js'
     ]);
   });
 });
 
-describe('generator-angular-modsmith:app [gulp]', function () {
-  before(function () {
+describe('generator-angular-modsmith:app [gulp]', () => {
+  before(() => {
     return helpers.run(path.join(__dirname, '../generators/app'))
       .withPrompts({argBuild: 'gulp'})
       .toPromise();
   });
 
-  it('Creates gulpfile.js', function () {
+  it('Creates gulpfile.js', () => {
     assert.file([
       'gulpfile.js'
     ]);
