@@ -122,12 +122,11 @@ module.exports = yeoman.Base.extend({
         name: 'argKeywords',
         message: chalk.yellow('Package keywords [comma-separated]:'),
         filter: function (str) {
-          return str
-                  .trim()
-                  .replace(/\s*,\s*/g, ',')   // Remove space around commas
-                  .replace(/,+/g, ',')        // Remove consecutive commas
-                  .replace(/(^,)|(,$)/g, '')  // Remove leading & trailing commas
-                  .split(/,/g);
+          return str.trim()
+            .replace(/\s*,\s*/g, ',')   // Remove space around commas
+            .replace(/,+/g, ',')        // Remove consecutive commas
+            .replace(/(^,)|(,$)/g, '')  // Remove leading & trailing commas
+            .split(/,/g);
         }
       },
       {

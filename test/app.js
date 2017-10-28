@@ -71,8 +71,8 @@ describe('generator-angular-modsmith:app', function () {
 describe('generator-angular-modsmith:app [grunt])', function () {
   before(function () {
     return helpers.run(path.join(__dirname, '../generators/app'))
-    .withPrompts({argBuild: 'grunt'})
-    .toPromise();
+      .withPrompts({argBuild: 'grunt'})
+      .toPromise();
   });
 
   it('Creates Gruntfile.js', function () {
@@ -85,8 +85,8 @@ describe('generator-angular-modsmith:app [grunt])', function () {
 describe('generator-angular-modsmith:app [gulp]', function () {
   before(function () {
     return helpers.run(path.join(__dirname, '../generators/app'))
-    .withPrompts({argBuild: 'gulp'})
-    .toPromise();
+      .withPrompts({argBuild: 'gulp'})
+      .toPromise();
   });
 
   it('Creates gulpfile.js', function () {

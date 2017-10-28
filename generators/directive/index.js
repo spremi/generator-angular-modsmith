@@ -152,23 +152,23 @@ module.exports = yeoman.Base.extend({
       var dstDir = path.join('src', 'directives', this.props.dtv.name.camel);
 
       this.template('_directive.js',
-                    path.join(dstDir, this.props.dtv.name.camel + '.directive.js'),
-                    this.props);
+        path.join(dstDir, this.props.dtv.name.camel + '.directive.js'),
+        this.props);
 
       this.template('_directive.spec.js',
-                    path.join(dstDir, this.props.dtv.name.camel + '.directive.spec.js'),
-                    this.props);
+        path.join(dstDir, this.props.dtv.name.camel + '.directive.spec.js'),
+        this.props);
 
       if (this.props.dtv.style) {
         this.template('_directive.styl',
-                      path.join(dstDir, this.props.dtv.name.camel + '.styl'),
-                      this.props);
+          path.join(dstDir, this.props.dtv.name.camel + '.styl'),
+          this.props);
       }
 
       if (this.props.dtv.extTpl) {
         this.template('_directive.html',
-                      path.join(dstDir, this.props.dtv.name.camel + '.html'),
-                      this.props);
+          path.join(dstDir, this.props.dtv.name.camel + '.html'),
+          this.props);
       }
 
       //
@@ -179,9 +179,7 @@ module.exports = yeoman.Base.extend({
       if (fs.existsSync(modStylus)) {
         this.log('\n' + chalk.yellow('File') + ' module.styl ' + chalk.yellow('already exists.') + '\n');
       } else {
-        this.template('_module.styl',
-                      'src/module.styl',
-                      this.props);
+        this.template('_module.styl', 'src/module.styl', this.props);
       }
     }
   }
