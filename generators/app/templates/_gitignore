@@ -8,6 +8,16 @@
 
 node_modules/
 npm-debug.log
+coverage/
+
+# ----------- Created by file managers
+
+.directory
+Thumbs.db
+
+# ----------- Created by IDEs
+
+.codelite
 
 # ----------- Automatic backup files
 
