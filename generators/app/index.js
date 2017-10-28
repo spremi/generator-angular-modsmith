@@ -388,6 +388,22 @@ module.exports = class extends Generator {
       this.props);
   }
 
+  /**
+   * Private function to initialize git repo and commit sources
+   */
+  _gitCommit() {
+    const sgit = require('simple-git')(this.destinationRoot());
+
+    var msg = 'chore: Seed the AngularJS module\n' +
+              '\n' +
+              'Created by generator-angular-modsmith v' +
+              this.rootGeneratorVersion() + '.\n';
+
+    sgit.init().add('.').commit(msg);
+
+    this.log(chalk.white.bold('\nInitialized repo.\n'));
+  }
+
   writing() {
     this._copyBaseFiles();
     this._copyLicense();
@@ -407,6 +423,8 @@ module.exports = class extends Generator {
   }
 
   end() {
+    this._gitCommit();
+
     this.log(chalk.green.bold('\nReady.\n'));
   }
 };
