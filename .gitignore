@@ -12,6 +12,10 @@ coverage
 .directory
 Thumbs.db
 
+# ----------- Created by IDEs
+
+.codelite
+
 # ----------- Automatic backup files
 
 *~
