@@ -1,10 +1,11 @@
 'use strict';
-var path = require('path');
-var assert = require('yeoman-assert');
-var helpers = require('yeoman-test');
 
-describe('generator-angular-modsmith:directive', function () {
-  before(function () {
+const path = require('path');
+const assert = require('yeoman-assert');
+const helpers = require('yeoman-test');
+
+describe('generator-angular-modsmith:directive', () => {
+  before(() => {
     return helpers.run(path.join(__dirname, '../generators/directive'))
       .withLocalConfig({
         pkg: {
@@ -37,25 +38,25 @@ describe('generator-angular-modsmith:directive', function () {
       .toPromise();
   });
 
-  it('Creates source file', function () {
+  it('Creates source file', () => {
     assert.file([
       'src/directives/alphaBeta/alphaBeta.directive.js'
     ]);
   });
 
-  it('Creates external template', function () {
+  it('Creates external template', () => {
     assert.file([
       'src/directives/alphaBeta/alphaBeta.html'
     ]);
   });
 
-  it('Creates stylus file', function () {
+  it('Creates stylus file', () => {
     assert.file([
       'src/directives/alphaBeta/alphaBeta.styl'
     ]);
   });
 
-  it('Creates spec file', function () {
+  it('Creates spec file', () => {
     assert.file([
       'src/directives/alphaBeta/alphaBeta.directive.spec.js'
     ]);

@@ -1,38 +1,46 @@
 'use strict';
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
-var to = require('to-case');
-var path = require('path');
-var mkdirp = require('mkdirp');
-var fs = require('fs');
 
-module.exports = yeoman.Base.extend({
-  initializing: function () {
+const Generator = require('yeoman-generator');
+const chalk = require('chalk');
+const yosay = require('yosay');
+const path = require('path');
+const to = require('to-case');
+const mkdirp = require('mkdirp');
+const fs = require('fs');
+
+module.exports = class extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
+
     //
     // Get command-line argument, if any
     //
-    this.argument('arg', {type: String, required: false});
-  },
+    this.argument('arg',
+      {
+        type: String,
+        required: false,
+        desc: 'Name of the directive'
+      });
+  }
 
-  prompting: function () {
+  prompting() {
     this.log(yosay(
       'Welcome to the ' + chalk.red('angular-modsmith') + ' generator!'
     ));
 
-    if (typeof this.arg === 'undefined') {
+    if (typeof this.options.arg === 'undefined') {
       this.log(chalk.blue.bold('Creating new directive...') + '\n');
     } else {
       this.log(chalk.blue.bold('Creating directive') + ' ' +
-               chalk.magenta.bold(this.arg) + chalk.blue.bold('...') + '\n');
+               chalk.magenta.bold(this.options.arg) + chalk.blue.bold('...') + '\n');
     }
 
-    var prompts = [
+    const prompts = [
       {
         type: 'input',
         name: 'argName',
         message: chalk.yellow('Directive name :'),
-        default: this.arg ? to.slug(this.arg) : undefined
+        default: this.options.arg ? to.slug(this.options.arg) : undefined
       },
       {
         type: 'input',
@@ -88,7 +96,7 @@ module.exports = yeoman.Base.extend({
       }
     ];
 
-    return this.prompt(prompts).then(function (props) {
+    return this.prompt(prompts).then(props => {
       //
       // Read package configuration.
       //
@@ -113,63 +121,56 @@ module.exports = yeoman.Base.extend({
           restrict  : props.argRestrict
         }
       };
-    }.bind(this));
-  },
+    });
+  }
 
-  writing: {
-    //
-    // Create directories
-    //
-    dirs: function () {
-      var ok = true;
-      var dstDir = path.join('src', 'directives', this.props.dtv.name.camel);
+  /**
+   * Private function to create directory
+   */
+  _createDir(dst) {
+    var dirOk = true;
 
-      try {
-        mkdirp.sync(dstDir);
-      } catch (e) {
-        ok = false;
+    try {
+      mkdirp.sync(dst);
+    } catch (e) {
+      dirOk = false;
 
-        this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
-                 chalk.magenta.bold(dstDir));
-        this.log(chalk.yellow(e.message) + '\n');
-      } finally {
-        if (ok) {
-          this.dstError = false;
-        } else {
-          this.dstError = true;
-        }
-      }
-    },
+      this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
+               chalk.magenta.bold(dst));
+      this.log(chalk.yellow(e.message) + '\n');
+    }
 
-    //
-    // Copy sources files
-    //
-    sources: function () {
-      if (this.dstError) {
-        return;
-      }
+    if (!dirOk) {
+      return this.error(new Error('Failed to create directory: ' + dst));
+    }
+  }
 
-      var dstDir = path.join('src', 'directives', this.props.dtv.name.camel);
+  /**
+   * Private function to copy source files
+   */
+  _copySourceFiles(dst) {
+    this.fs.copyTpl(
+      this.templatePath('_directive.js'),
+      this.destinationPath(path.join(dst, this.props.dtv.name.camel + '.directive.js')),
+      this.props);
 
-      this.template('_directive.js',
-        path.join(dstDir, this.props.dtv.name.camel + '.directive.js'),
+    this.fs.copyTpl(
+      this.templatePath('_directive.spec.js'),
+      this.destinationPath(path.join(dst, this.props.dtv.name.camel + '.directive.spec.js')),
+      this.props);
+
+    if (this.props.dtv.extTpl) {
+      this.fs.copyTpl(
+        this.templatePath('_directive.html'),
+        this.destinationPath(path.join(dst, this.props.dtv.name.camel + '.html')),
         this.props);
+    }
 
-      this.template('_directive.spec.js',
-        path.join(dstDir, this.props.dtv.name.camel + '.directive.spec.js'),
+    if (this.props.dtv.style) {
+      this.fs.copyTpl(
+        this.templatePath('_directive.styl'),
+        this.destinationPath(path.join(dst, this.props.dtv.name.camel + '.styl')),
         this.props);
-
-      if (this.props.dtv.style) {
-        this.template('_directive.styl',
-          path.join(dstDir, this.props.dtv.name.camel + '.styl'),
-          this.props);
-      }
-
-      if (this.props.dtv.extTpl) {
-        this.template('_directive.html',
-          path.join(dstDir, this.props.dtv.name.camel + '.html'),
-          this.props);
-      }
 
       //
       // Copy module-level 'stylus' file - only if it doesn't exist.
@@ -179,8 +180,18 @@ module.exports = yeoman.Base.extend({
       if (fs.existsSync(modStylus)) {
         this.log('\n' + chalk.yellow('File') + ' module.styl ' + chalk.yellow('already exists.') + '\n');
       } else {
-        this.template('_module.styl', 'src/module.styl', this.props);
+        this.fs.copyTpl(
+          this.templatePath('_module.styl'),
+          this.destinationPath(path.join(dst, '..', 'module.styl')),
+          this.props);
       }
     }
   }
-});
+
+  writing() {
+    var dstDir = path.join('src', 'directives', this.props.dtv.name.camel);
+
+    this._createDir(dstDir);
+    this._copySourceFiles(dstDir);
+  }
+};
