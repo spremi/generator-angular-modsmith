@@ -23,6 +23,7 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "mkdirp": "^0.5.1",
+    "simple-git": "^1.80.1",
     "to-case": "^2.0.0",
     "yeoman-generator": "^2.0.1",
     "yosay": "^2.0.1"
