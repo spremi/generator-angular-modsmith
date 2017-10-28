@@ -7,6 +7,11 @@
 node_modules
 coverage
 
+# ----------- Created by file managers
+
+.directory
+Thumbs.db
+
 # ----------- Automatic backup files
 
 *~
@@ -19,6 +24,7 @@ coverage
 *.patch
 *.orig
 *rej
+
 
 # ----------- Specifically, don't ignore these files
 
