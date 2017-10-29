@@ -31,6 +31,11 @@ Thumbs.db
 *.orig
 *.rej
 
+# ----------- Created during build & result of build
+
+.tmp/
+dist/
+
 # ----------- Specifically, don't ignore these files
 
 !.gitignore
