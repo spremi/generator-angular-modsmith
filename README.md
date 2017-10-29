@@ -1,12 +1,10 @@
 # generator-angular-modsmith
 Yeoman generator to quickly setup a project for implementing an AngularJS 1.x module (**not application**).
 
-:construction:
-
 | Attribute | Status|
 | :--- | :--- |
 | **Stability** | Beta |
-| **Features**   | Alpha |
+| **Features**  | Beta |
 
 ## Features
 - Choice of build systems:
@@ -20,21 +18,26 @@ Yeoman generator to quickly setup a project for implementing an AngularJS 1.x mo
   - Contains file headers.
   - Contains comments compatible with *ngdoc*.
   - Follows *IIFE* syntax.
+  - Is automatically committed to `git` repository.
+    - Keeps your changes independent of generated code.
+- Optionally generate `bower.json`.
 - Supports **Stylus** for stylesheets.
 - Uses **ESLint** for static code checking.
   - Uses *eslint-plugin-angular* for checking code against best practices.
 - Uses *Karma* + *Jasmine* for unit testing.
   - Uses *coverage* reporter for code coverage.
+- Synonyms for build targets
+  - Adapt to your own, instead of learning new ones.
 
 ### Under development
 These features are under active development:
 - [ ] Complete support for GulpJS
 - [x] Update dependencies, if necessary
 - [x] Migrate from `grunt-autoprefixer` to `grunt-postcss`
-- [ ] Migrate to yeoman-generator 1.0
+- [x] Migrate to yeoman-generator ~~1.0~~ **2.0**
 - [x] Migrate to IIFE syntax
 - [ ] Optimize build steps
-- [ ] Commit files into `git` as specific commit.
+- [x] Commit files into `git` as specific commit.
 
 The code associated with these features can be viewed in corresponding
 branches. The latest code, however, may still be in my local repo.
@@ -55,35 +58,36 @@ Run this command in the directory of your choice:
 yo angular-modsmith
 ```
 ### Available generators
+
+> As a common convention, values in square brackets below are optional.
+
 #### default
 Default generator for setting up a new module.
 ```sh
-yo angular-modsmith
+yo angular-modsmith [name-of-module]
 ```
 #### directive
 Generates code for a directive in the module.
 ```sh
-yo angular-modsmith:directive
+yo angular-modsmith:directive [name-of-directive]
 ```
 #### service
 Generates code for a service in the module.
 ```sh
-yo angular-modsmith:service
+yo angular-modsmith:service [name-of-service]
 ```
 #### factory
 Generates code for a factory in the module.
 ```sh
-yo angular-modsmith:factory
+yo angular-modsmith:factory [name-of-factory]
 ```
-
-> Name of the module/ directive/ service/ factory can, optionally, be provided as a parameter to these commands.
 
 ### Build tasks in generated modules
 These tasks are available on both **Grunt** and **Gulp** (_under development_).
-#### eslint/ lint
+#### eslint | lint
 Perform static type checking of the module sources. It is the _**default**_ task.
 
-#### karma/ test
+#### karma | test
 Executes unit tests for the modules and shows code coverage data.
 
 #### build
