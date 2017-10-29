@@ -352,6 +352,11 @@ module.exports = class extends Generator {
       this.props);
 
     this.fs.copyTpl(
+      this.templatePath('_module.spec.js'),
+      this.destinationPath('src/index.spec.js'),
+      this.props);
+
+    this.fs.copyTpl(
       this.templatePath('_index.js'),
       this.destinationPath('index.js'),
       this.props);
