@@ -1,7 +1,18 @@
 'use strict';
-var path = require('path');
-var assert = require('yeoman-assert');
-var helpers = require('yeoman-test');
+
+const path = require('path');
+const assert = require('yeoman-assert');
+const helpers = require('yeoman-test');
+
+const proxyquire = require('proxyquire').noCallThru();
+const simpleGitMock = require('./simple-git-mock');
+
+const moduleBeingTested = '../generators/app';
+
+//
+// Use 'simple-git' mock
+//
+proxyquire(moduleBeingTested, {'simple-git': simpleGitMock});
 
 describe('generator-angular-modsmith:app', () => {
   before(() => {

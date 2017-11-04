@@ -4,6 +4,16 @@ const path = require('path');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
+const proxyquire = require('proxyquire').noCallThru();
+const simpleGitMock = require('./simple-git-mock');
+
+const moduleBeingTested = '../generators/factory';
+
+//
+// Use 'simple-git' mock
+//
+proxyquire(moduleBeingTested, {'simple-git': simpleGitMock});
+
 describe('generator-angular-modsmith:factory', function () {
   before(function () {
     return helpers.run(path.join(__dirname, '../generators/factory'))
