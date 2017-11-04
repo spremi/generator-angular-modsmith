@@ -12,6 +12,7 @@ gulp.task('static', function () {
   return gulp.src(
     [
       '**/*.js',
+      '!node_modules/**',
       '!generators/**/templates/*.js'
     ])
     .pipe(excludeGitignore())
@@ -28,6 +29,7 @@ gulp.task('pre-test', function () {
   return gulp.src(
     [
       'generators/**/*.js',
+      '!node_modules/**',
       '!generators/**/templates/*.js',
       '!generators/**/templates/test/*.js'
     ])
