@@ -7,6 +7,7 @@ var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
 var nsp = require('gulp-nsp');
 var plumber = require('gulp-plumber');
+var gulpSequence = require('gulp-sequence');
 
 gulp.task('static', function () {
   return gulp.src(
@@ -60,4 +61,6 @@ gulp.task('watch', function () {
 });
 
 gulp.task('prepublish', ['nsp']);
-gulp.task('default', ['static', 'test']);
+gulp.task('default', function (cb) {
+  gulpSequence('static', 'test')(cb);
+});
