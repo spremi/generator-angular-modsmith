@@ -101,6 +101,12 @@ module.exports = class extends Generator {
           }
         ],
         default: 'E'
+      },
+      {
+        type: 'confirm',
+        name: 'argTransclude',
+        message: chalk.yellow('Transclude?'),
+        default: false
       }
     ];
 
@@ -127,7 +133,8 @@ module.exports = class extends Generator {
           extTpl    : props.argExtTpl,
           linkFn    : props.argLinkFn,
           destroyFn : props.argLinkDestroy,
-          restrict  : props.argRestrict
+          restrict  : props.argRestrict,
+          transclude: props.argTransclude
         }
       };
     });

@@ -26,6 +26,13 @@
     var directive = {
       restrict: '<%= dtv.restrict %>',
 <%
+if (dtv.transclude) {
+-%>
+      transclude: true,
+<%
+}
+-%>
+<%
 if (dtv.extTpl) {
 -%>
       templateUrl: 'src/directives/<%= dtv.name.camel %>/<%= dtv.name.camel %>.html',
