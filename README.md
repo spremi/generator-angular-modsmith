@@ -3,10 +3,11 @@ Yeoman generator to quickly setup a project for implementing an AngularJS 1.x mo
 
 | Attribute | Status|
 | :--- | :--- |
-| **Stability** | Beta |
-| **Features**  | Beta |
+| **Stability** | Release Candidate |
+| **Features**  | Release Candidate |
 
 ## Features
+- Compatible with **`yeoman-generator v2`**.
 - Choice of build systems:
   - Grunt
   - Gulp _(Under development)_
@@ -32,12 +33,12 @@ Yeoman generator to quickly setup a project for implementing an AngularJS 1.x mo
 ### Under development
 These features are under active development:
 - [ ] Complete support for GulpJS
-- [x] Update dependencies, if necessary
-- [x] Migrate from `grunt-autoprefixer` to `grunt-postcss`
-- [x] Migrate to yeoman-generator ~~1.0~~ **2.0**
-- [x] Migrate to IIFE syntax
+- [x] ~~Update dependencies, if necessary~~
+- [x] ~~Migrate from `grunt-autoprefixer` to `grunt-postcss`~~
+- [x] ~~Migrate to yeoman-generator 1.0~~ Migrated to **2.0**
+- [x] ~~Migrate to IIFE syntax~~
 - [ ] Optimize build steps
-- [x] Commit files into `git` as specific commit.
+- [x] ~~Commit generated files into `git` as individual commit.~~
 
 The code associated with these features can be viewed in corresponding
 branches. The latest code, however, may still be in my local repo.
