@@ -27,7 +27,7 @@ Thumbs.db
 *.diff
 *.patch
 *.orig
-*rej
+*.rej
 
 
 # ----------- Specifically, don't ignore these files
