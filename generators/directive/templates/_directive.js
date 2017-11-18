@@ -52,8 +52,25 @@ if (dtv.linkFn) {
 if (dtv.linkFn) {
 -%>
 
+<%
+if (dtv.destroyFn) {
+-%>
+    function <%= dtv.name.camel %>Link(scope, element /*, attrs */) {
+      /**
+       * Clean-up on '$destroy' event
+       */
+      element.on('$destroy', function () {
+        // TODO: Implement
+      });
+    }
+<%
+} else {
+-%>
     function <%= dtv.name.camel %>Link(/* scope, element, attrs */) {
     }
+<%
+}
+-%>
 <%
 }
 -%>

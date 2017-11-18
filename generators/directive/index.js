@@ -67,6 +67,14 @@ module.exports = class extends Generator {
         default: true
       },
       {
+        type: 'confirm',
+        name: 'argLinkDestroy',
+        message: chalk.yellow('Add cleanup on $destroy?'),
+        when: function (response) {
+          return response.argLinkFn;
+        }
+      },
+      {
         type: 'list',
         name: 'argRestrict',
         message: chalk.yellow('Restrict to?'),
@@ -118,6 +126,7 @@ module.exports = class extends Generator {
           style     : props.argStyle,
           extTpl    : props.argExtTpl,
           linkFn    : props.argLinkFn,
+          destroyFn : props.argLinkDestroy,
           restrict  : props.argRestrict
         }
       };
