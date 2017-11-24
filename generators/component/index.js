@@ -185,8 +185,4 @@ module.exports = class extends Generator {
     this._createDir(dstDir);
     this._copySourceFiles(dstDir);
   }
-
-  install() {
-    this.installDependencies();
-  }
 };
