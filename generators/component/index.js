@@ -4,6 +4,8 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 const to = require('to-case');
 const mkdirp = require('mkdirp');
+const fs = require('fs');
+const path = require('path');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -134,11 +136,54 @@ module.exports = class extends Generator {
     }
   }
 
+  /**
+   * Private function to copy source files
+   */
+  _copySourceFiles(dst) {
+    this.fs.copyTpl(
+      this.templatePath('_component.js'),
+      this.destinationPath(path.join(dst, this.props.cmp.name.camel + '.component.js')),
+      this.props);
+
+    this.fs.copyTpl(
+      this.templatePath('_component.spec.js'),
+      this.destinationPath(path.join(dst, this.props.cmp.name.camel + '.component.spec.js')),
+      this.props);
+
+    if (this.props.cmp.extTpl) {
+      this.fs.copyTpl(
+        this.templatePath('_component.html'),
+        this.destinationPath(path.join(dst, this.props.cmp.name.camel + '.html')),
+        this.props);
+    }
+
+    if (this.props.cmp.style) {
+      this.fs.copyTpl(
+        this.templatePath('_component.styl'),
+        this.destinationPath(path.join(dst, this.props.cmp.name.camel + '.styl')),
+        this.props);
+
+      //
+      // Copy module-level 'stylus' file - only if it doesn't exist.
+      //
+      var modStylus = this.destinationPath('src/module.styl');
+
+      if (fs.existsSync(modStylus)) {
+        this.log('\n' + chalk.yellow('File') + ' module.styl ' + chalk.yellow('already exists.') + '\n');
+      } else {
+        this.fs.copyTpl(
+          this.templatePath('_module.styl'),
+          this.destinationPath(path.join(dst, '..', 'module.styl')),
+          this.props);
+      }
+    }
+  }
 
   writing() {
     var dstDir = path.join('src', 'components', this.props.cmp.name.camel);
 
     this._createDir(dstDir);
+    this._copySourceFiles(dstDir);
   }
 
   install() {
