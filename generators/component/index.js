@@ -2,6 +2,7 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const to = require('to-case');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -19,21 +20,95 @@ module.exports = class extends Generator {
   }
 
   prompting() {
-    // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the supreme ' + chalk.red('generator-angular-modsmith') + ' generator!'
+      'Welcome to the ' + chalk.red('angular-modsmith') + ' generator!'
     ));
 
-    const prompts = [{
-      type: 'confirm',
-      name: 'someAnswer',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+    if (typeof this.options.arg === 'undefined') {
+      this.log(chalk.blue.bold('Creating new component...') + '\n');
+    } else {
+      this.log(chalk.blue.bold('Creating component') + ' ' +
+               chalk.magenta.bold(this.options.arg) + chalk.blue.bold('...') + '\n');
+    }
+
+    const prompts = [
+      {
+        type: 'input',
+        name: 'argName',
+        message: chalk.yellow('component name :'),
+        default: this.options.arg ? to.slug(this.options.arg) : undefined
+      },
+      {
+        type: 'input',
+        name: 'argDesc',
+        message: chalk.yellow('component desc :'),
+        default: 'TODO: Add component description.'
+      },
+      {
+        type: 'confirm',
+        name: 'argExtTpl',
+        message: chalk.yellow('Create an external template?'),
+        default: true
+      },
+      {
+        type: 'confirm',
+        name: 'argStyle',
+        message: chalk.yellow('Create stylesheets?'),
+        default: true
+      },
+      {
+        type: 'confirm',
+        name: 'argTransclude',
+        message: chalk.yellow('Transclude?'),
+        default: false
+      },
+      {
+        type: 'confirm',
+        name: 'argInitFn',
+        message: chalk.yellow('Create Controller.$onInit()?'),
+        default: false
+      },
+      {
+        type: 'confirm',
+        name: 'argDestroyFn',
+        message: chalk.yellow('Create Controller.$onDestroy()?'),
+        default: false
+      },
+      {
+        type: 'confirm',
+        name: 'argChangesFn',
+        message: chalk.yellow('Create Controller.$onChanges()?'),
+        default: false
+      }
+    ];
 
     return this.prompt(prompts).then(props => {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
+      //
+      // Read package configuration.
+      //
+      var pkgconf = this.config.getAll();
+
+      //
+      // Add package configuration to component options
+      //
+      this.props = {
+        pkg     : JSON.parse(JSON.stringify(pkgconf.pkg)),
+        author  : JSON.parse(JSON.stringify(pkgconf.author)),
+        cmp : {
+          name  : {
+            orig    : props.argName,
+            slug    : to.slug(props.argName),
+            camel   : to.camel(props.argName)
+          },
+          desc      : props.argDesc,
+          style     : props.argStyle,
+          extTpl    : props.argExtTpl,
+          transclude: props.argTransclude,
+          initFn    : props.argInitFn,
+          destroyFn : props.argDestroyFn,
+          changesFn : props.argChangesFn
+        }
+      };
     });
   }
 

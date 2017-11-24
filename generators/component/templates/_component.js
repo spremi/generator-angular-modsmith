@@ -44,5 +44,46 @@ if (cmp.extTpl) {
     });
 
   function <%= cmp.name.camel %>Ctrl() {
+    var ctrl = this;
+<%
+if (cmp.initFn) {
+-%>
+
+    /**
+     * Lifecycle function called after controller is constructed.
+     */
+    ctrl.$onInit = function() {
+      // TODO: Add initialization code for the controller
+    };
+<%
+}
+
+-%>
+<%
+if (cmp.destroyFn) {
+-%>
+
+    /**
+     * Lifecycle function called before controller scope is destroyed.
+     */
+    ctrl.$onDestroy = function() {
+      // TODO: Release external resources, watches and event handlers
+    };
+<%
+}
+-%>
+<%
+if (cmp.changesFn) {
+-%>
+
+    /**
+     * Lifecycle function called when one-way bindings are updated.
+     */
+    ctrl.$onChanges = function(changesObj) {
+      // TODO: Trigger updates within a component
+    };
+<%
+}
+-%>
   }
 })();
