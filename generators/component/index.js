@@ -3,6 +3,7 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const to = require('to-case');
+const mkdirp = require('mkdirp');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -112,11 +113,32 @@ module.exports = class extends Generator {
     });
   }
 
+  /**
+   * Private function to create directory
+   */
+  _createDir(dst) {
+    var dirOk = true;
+
+    try {
+      mkdirp.sync(dst);
+    } catch (e) {
+      dirOk = false;
+
+      this.log('\n' + chalk.red.bold('Couldn\'t create directory:') + ' ' +
+               chalk.magenta.bold(dst));
+      this.log(chalk.yellow(e.message) + '\n');
+    }
+
+    if (!dirOk) {
+      return this.error(new Error('Failed to create directory: ' + dst));
+    }
+  }
+
+
   writing() {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
+    var dstDir = path.join('src', 'components', this.props.cmp.name.camel);
+
+    this._createDir(dstDir);
   }
 
   install() {
