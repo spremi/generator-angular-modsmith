@@ -12,6 +12,7 @@ Yeoman generator to quickly setup a project for implementing an AngularJS 1.x mo
   - Grunt
   - Gulp _(Under development)_
 - Sub-generators to generate code for:
+  - Component
   - Directive
   - Factory
   - Service
@@ -66,6 +67,11 @@ yo angular-modsmith
 Default generator for setting up a new module.
 ```sh
 yo angular-modsmith [name-of-module]
+```
+#### component
+Generates code for a component in the module.
+```sh
+yo angular-modsmith:component [name-of-component]
 ```
 #### directive
 Generates code for a directive in the module.
