@@ -4,6 +4,20 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 
 module.exports = class extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
+
+    //
+    // Get command-line argument, if any
+    //
+    this.argument('arg',
+      {
+        type: String,
+        required: false,
+        desc: 'Name of the component'
+      });
+  }
+
   prompting() {
     // Have Yeoman greet the user.
     this.log(yosay(
