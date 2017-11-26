@@ -77,6 +77,12 @@ describe('generator-angular-modsmith:app', () => {
       '.npmignore'
     ]);
   });
+
+  it('Creates bower.json', () => {
+    assert.file([
+      'bower.json'
+    ]);
+  });
 });
 
 describe('generator-angular-modsmith:app [grunt])', () => {
