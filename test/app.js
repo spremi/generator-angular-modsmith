@@ -120,3 +120,155 @@ describe('generator-angular-modsmith:app [gulp]', () => {
     ]);
   });
 });
+
+describe('generator-angular-modsmith:app [license/BSD-2-Clause]', () => {
+  before(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .withPrompts({
+        argName: 'test-mod',
+        argDesc: 'Test Module',
+        argVersion: '0.0.1',
+        argRepo: '',
+        argLicense: 'BSD-2-Clause',
+        argBuild: 'gulp'
+      })
+      .toPromise();
+  });
+
+  it('Sets BSD-2-Clause license', () => {
+    assert.jsonFileContent('./package.json', {license: 'BSD-2-Clause'});
+  });
+});
+
+describe('generator-angular-modsmith:app [license/BSD-3-Clause]', () => {
+  before(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .withPrompts({
+        argName: 'test-mod',
+        argDesc: 'Test Module',
+        argVersion: '0.0.1',
+        argRepo: '',
+        argLicense: 'BSD-3-Clause',
+        argBuild: 'gulp'
+      })
+      .toPromise();
+  });
+
+  it('Sets BSD-3-Clause license', () => {
+    assert.jsonFileContent('./package.json', {license: 'BSD-3-Clause'});
+  });
+});
+
+describe('generator-angular-modsmith:app [license/GPL-2.0]', () => {
+  before(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .withPrompts({
+        argName: 'test-mod',
+        argDesc: 'Test Module',
+        argVersion: '0.0.1',
+        argRepo: '',
+        argLicense: 'GPL-2.0',
+        argBuild: 'gulp'
+      })
+      .toPromise();
+  });
+
+  it('Sets GPL-2.0 license', () => {
+    assert.jsonFileContent('./package.json', {license: 'GPL-2.0'});
+  });
+});
+
+describe('generator-angular-modsmith:app [license/GPL-3.0]', () => {
+  before(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .withPrompts({
+        argName: 'test-mod',
+        argDesc: 'Test Module',
+        argVersion: '0.0.1',
+        argRepo: '',
+        argLicense: 'GPL-3.0',
+        argBuild: 'gulp'
+      })
+      .toPromise();
+  });
+
+  it('Sets GPL-3.0 license', () => {
+    assert.jsonFileContent('./package.json', {license: 'GPL-3.0'});
+  });
+});
+
+describe('generator-angular-modsmith:app [license/LGPL-2.1]', () => {
+  before(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .withPrompts({
+        argName: 'test-mod',
+        argDesc: 'Test Module',
+        argVersion: '0.0.1',
+        argRepo: '',
+        argLicense: 'LGPL-2.1',
+        argBuild: 'gulp'
+      })
+      .toPromise();
+  });
+
+  it('Sets LGPL-2.1 license', () => {
+    assert.jsonFileContent('./package.json', {license: 'LGPL-2.1'});
+  });
+});
+
+describe('generator-angular-modsmith:app [license/LGPL-3.0]', () => {
+  before(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .withPrompts({
+        argName: 'test-mod',
+        argDesc: 'Test Module',
+        argVersion: '0.0.1',
+        argRepo: '',
+        argLicense: 'LGPL-3.0',
+        argBuild: 'gulp'
+      })
+      .toPromise();
+  });
+
+  it('Sets LGPL-3.0 license', () => {
+    assert.jsonFileContent('./package.json', {license: 'LGPL-3.0'});
+  });
+});
+
+describe('generator-angular-modsmith:app [license/MIT]', () => {
+  before(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .withPrompts({
+        argName: 'test-mod',
+        argDesc: 'Test Module',
+        argVersion: '0.0.1',
+        argRepo: '',
+        argLicense: 'MIT',
+        argBuild: 'gulp'
+      })
+      .toPromise();
+  });
+
+  it('Sets MIT license', () => {
+    assert.jsonFileContent('./package.json', {license: 'MIT'});
+  });
+});
+
+describe('generator-angular-modsmith:app [license/Other]', () => {
+  before(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .withPrompts({
+        argName: 'test-mod',
+        argDesc: 'Test Module',
+        argVersion: '0.0.1',
+        argRepo: '',
+        argLicense: 'Other',
+        argBuild: 'gulp'
+      })
+      .toPromise();
+  });
+
+  it('Sets Other license', () => {
+    assert.jsonFileContent('./package.json', {license: 'Other'});
+  });
+});
