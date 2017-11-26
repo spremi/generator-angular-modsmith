@@ -6,6 +6,14 @@ Yeoman generator to quickly setup a project for implementing an AngularJS 1.x mo
 | **Stability** | Release Candidate |
 | **Features**  | Release Candidate |
 
+**Test Coverage Summary**
+```
+Statements   : 87.35% ( 221/253 )
+Branches     : 69.49% ( 41/59 )
+Functions    : 97.62% ( 41/42 )
+Lines        : 87.35% ( 221/253 )
+```
+
 ## Features
 - Compatible with **`yeoman-generator v2`**.
 - Choice of build systems:
