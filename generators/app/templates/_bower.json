@@ -7,7 +7,7 @@
   ],
   "keywords": [
   <%
-  if (typeof pkg.keywords === 'Array') {
+  if (Array.isArray(pkg.keywords)) {
     for (var p = 0; ((p < pkg.keywords.length) && (pkg.keywords[p] !== '')); p++) {
       if (p !== (pkg.keywords.length - 1)) {
   -%>
