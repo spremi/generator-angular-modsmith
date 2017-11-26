@@ -83,6 +83,14 @@ describe('generator-angular-modsmith:app', () => {
       'bower.json'
     ]);
   });
+
+  it('Sets project attributes', () => {
+    assert.jsonFileContent('./package.json', {name: 'test-mod'});
+    assert.jsonFileContent('./package.json', {description: 'Test Module'});
+    assert.jsonFileContent('./package.json', {version: '0.0.1'});
+    assert.jsonFileContent('./package.json', {license: 'Apache-2.0'});
+    assert.jsonFileContent('./package.json', {author: {name: 'Some One', email: 'some@one.two', url: ''}});
+  });
 });
 
 describe('generator-angular-modsmith:app [grunt])', () => {
